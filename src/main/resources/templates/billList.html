@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>自动签到系统</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- 新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-image: url("/image/paper.gif");
+        }
+    </style>
+</head>
+<body>
+<div th:replace="common/common::admindhl"></div>
+<!--<div th:include="common/header::daohang"></div>-->
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>索引</th>
+            <th>count</th>
+            <th>size</th>
+            <th>current</th>
+            <th>even</th>
+            <th>first</th>
+            <th>last</th>
+            <th>流水号</th>
+            <th>交易类型</th>
+            <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bill,billStat : ${list}">
+            <td th:text="${billStat.index}"></td>
+            <td th:text="${billStat.count}"></td>
+            <td th:text="${billStat.size}"></td>
+            <td th:text="${billStat.current}"></td>
+            <td th:text="${billStat.even}"></td>
+            <td th:text="${billStat.first}"></td>
+            <td th:text="${billStat.last}"></td>
+            <td th:text="${bill.jrnNo}"></td>
+            <td th:text="${bill.txTyp}"></td>
+            <td th:text="${bill.remark}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+[{
+  "remark":"${remark}",
+  "jrnNo": "${jrnNo}",
+  "txTyp": "${txTyp}"
+},
+  {
+    "remark":"${remark2}",
+    "jrnNo": "${jrnNo}",
+    "txTyp": "${txTyp}"
+  }
+]
