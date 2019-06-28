@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <bean id="billControllerBean" class="com.murong.wjl.testspringboot2.Controller.billController">
+    <bean id="billControllerBean" class="com.wxy.wjl.testspringboot2.Controller.billController">
         <!-- collaborators and configuration for this bean go here -->
     </bean>
 
@@ -37,7 +37,7 @@
     </bean>
 
 
-    <bean id="dataSourceSwitcher" class="com.murong.wjl.testng.dbUtils.DataSourceSwitcher">
+    <bean id="dataSourceSwitcher" class="com.wxy.wjl.testng.dbUtils.DataSourceSwitcher">
         <property name="dataSourceMap">
             <map>
                 <entry key="01" value-ref="dataSource"></entry>

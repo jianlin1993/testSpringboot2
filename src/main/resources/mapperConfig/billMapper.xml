@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.murong.wjl.testspringboot2.mapper.BillMapper">
-   <resultMap id="BillList" type="com.murong.wjl.testspringboot2.domain.Bill" >
+<mapper namespace="com.wxy.wjl.testspringboot2.mapper.BillMapper">
+   <resultMap id="BillList" type="com.wxy.wjl.testspringboot2.domain.Bill" >
       <result column="TX_TYP" property="txTyp" jdbcType="VARCHAR"/>
       <result column="TX_DT" property="txDt" jdbcType="VARCHAR"/>
       <result column="TX_AMT" property="txAmt" jdbcType="DOUBLE"/>
@@ -12,7 +12,7 @@
    </resultMap>
 
 
-   <select id="getBill" resultType="com.murong.wjl.testspringboot2.domain.Bill">
+   <select id="getBill" resultType="com.wxy.wjl.testspringboot2.domain.Bill">
       SELECT * FROM bill WHERE no = #{jrnNo}
    </select>
 
@@ -21,7 +21,7 @@
    </select>
 
 
-   <select id="getBillByNo" resultType="com.murong.wjl.testspringboot2.domain.Bill">
+   <select id="getBillByNo" resultType="com.wxy.wjl.testspringboot2.domain.Bill">
       SELECT * FROM bill WHERE NO = #{no}
    </select>
 </mapper>

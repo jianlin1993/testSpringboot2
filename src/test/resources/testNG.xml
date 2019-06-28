@@ -3,7 +3,7 @@
 <suite name="Default Suite">
     <test name="Java_Learn">
         <classes>
-            <class name="com.murong.wjl.testng.test.MockTest"/>
+            <class name="com.wxy.wjl.testng.test.MockTest"/>
         </classes>
     </test> <!-- Java_Learn -->
 </suite>
