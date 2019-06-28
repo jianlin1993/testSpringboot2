@@ -3,16 +3,9 @@ package com.murong.wjl.testng.test;
 import com.murong.wjl.testspringboot2.Controller.billController;
 import com.murong.wjl.testspringboot2.Testspringboot2Application;
 import com.murong.wjl.testspringboot2.domain.Bill;
-import com.murong.wjl.testspringboot2.mapper.BillMapper;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.util.ReflectionTestUtils;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
@@ -35,5 +28,10 @@ public class UnitTest extends AbstractTestNGSpringContextTests{
        Bill billRsp=billController1.getUser("0000000001");
        System.out.println(billRsp.getRemark());
     }
-
+    @Test
+    public  void test03(){
+        Bill bill=billController1.getBillByNo();
+        logger.info(bill.getNo()+"");
+        logger.info(bill.getRemark());
+    }
 }

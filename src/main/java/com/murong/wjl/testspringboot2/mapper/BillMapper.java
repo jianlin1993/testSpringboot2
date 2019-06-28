@@ -9,4 +9,5 @@ import java.util.List;
 public interface BillMapper {
     Bill getBill(String jrnNo);
     List<Bill> getAll();
+    Bill getBillByNo(int no);
 }

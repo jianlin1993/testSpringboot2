@@ -36,7 +36,7 @@ public class MockTest {
         bill.setRemark("testNG");
         Mockito.when(billMapper.getBill(Mockito.anyString())).thenReturn(bill);
         Bill billRsp=billController1.getUser("0000000001");
-        logger.debug(billRsp.getJrnNo());
+        logger.debug(billRsp.getNo()+" ");
         logger.info(billRsp.getRemark());
         logger.error(billRsp.getTxTyp());
 

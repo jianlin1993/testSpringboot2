@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.murong.wjl.testng.dataprovider.TestNGExtensionUtils;
 import com.murong.wjl.testng.excelUtil.ExcelUtil;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
 import org.thymeleaf.util.StringUtils;
 
 import java.lang.reflect.Method;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class TestNGBaseTest {
+public class TestNGBaseTest{
     public TestNGBaseTest(){
     }
 
