@@ -115,12 +115,24 @@
          <artifactId>powermock-api-mockito</artifactId>
          <version>1.6.5</version>
          <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <artifactId>mockito-core</artifactId>
+               <groupId>org.mockito</groupId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <dependency>
          <groupId>org.powermock</groupId>
          <artifactId>powermock-module-testng</artifactId>
          <version>1.6.5</version>
          <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <artifactId>testng</artifactId>
+               <groupId>org.testng</groupId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <dependency>
          <groupId>org.powermock</groupId>

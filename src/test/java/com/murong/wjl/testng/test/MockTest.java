@@ -7,10 +7,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class MockTest {
+
+    Logger logger= LoggerFactory.getLogger(MockTest.class);
 
     @Mock
     BillMapper billMapper;
@@ -32,7 +36,10 @@ public class MockTest {
         bill.setRemark("testNG");
         Mockito.when(billMapper.getBill(Mockito.anyString())).thenReturn(bill);
         Bill billRsp=billController1.getUser("0000000001");
-        System.out.println(billRsp.getRemark());
+        logger.debug(billRsp.getJrnNo());
+        logger.info(billRsp.getRemark());
+        logger.error(billRsp.getTxTyp());
+
     }
 
 }
