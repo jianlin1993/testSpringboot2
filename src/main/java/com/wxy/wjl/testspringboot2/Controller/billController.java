@@ -51,4 +51,18 @@ public class billController {
         Bill bill = billMapper.getBillByNo(1);
         return bill;
     }
+    @ResponseBody
+    @RequestMapping("add")
+    public String add(){
+        Bill bill=new Bill();
+        bill.setRemark("test");
+        bill.setCnlNo("1");
+        bill.setTxAmt("1");
+        bill.setTxDt("20190708");
+        bill.setUsrNo("001");
+        bill.setNo(1);
+        bill.setTxTyp("1");
+        int res= billMapper.add(bill);
+        return String.valueOf(res);
+    }
 }

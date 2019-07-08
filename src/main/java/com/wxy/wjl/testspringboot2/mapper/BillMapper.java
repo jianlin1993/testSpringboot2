@@ -10,4 +10,5 @@ public interface BillMapper {
     Bill getBill(String jrnNo);
     List<Bill> getAll();
     Bill getBillByNo(int no);
+    int add(Bill bill);
 }

@@ -24,4 +24,8 @@
    <select id="getBillByNo" resultType="com.wxy.wjl.testspringboot2.domain.Bill">
       SELECT * FROM bill WHERE NO = #{no}
    </select>
+
+   <select id="add" parameterType="com.wxy.wjl.testspringboot2.domain.Bill" resultType="int">
+      insert into bill(TX_TYP,TX_DT,TX_AMT,REMARK,USR_NO,CNL_NO,NO) values(#{txTyp},#{txDt},#{txAmt},#{remark},#{usrNo},#{cnlNo},#{no})
+   </select>
 </mapper>
