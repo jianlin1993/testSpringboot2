@@ -10,10 +10,14 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
+public class TestNGBaseTest  {
 
-public class TestNGBaseTest{
+
+
     public TestNGBaseTest(){
     }
+
+
 
     @DataProvider
     public Object[][] excelDataProvider(Method method) throws Exception{
@@ -100,7 +104,6 @@ public class TestNGBaseTest{
         }
         return sb.toString();
     }
-
 
 
 }

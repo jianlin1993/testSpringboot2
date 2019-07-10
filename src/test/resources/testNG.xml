@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Default Suite">
+    <listeners>
+        <listener class-name="com.wxy.wjl.testng.TestNGRetryListener"></listener>
+        <listener class-name="com.wxy.wjl.testng.TestNGListener"></listener>
+    </listeners>
     <test name="Java_Learn">
         <classes>
-            <class name="com.wxy.wjl.testng.test.MockTest"/>
+            <class name="com.wxy.wjl.testng.test.test1">
+                <methods>
+                    <include name="test01"></include>
+                </methods>
+            </class>
+
         </classes>
     </test> <!-- Java_Learn -->
 </suite>
