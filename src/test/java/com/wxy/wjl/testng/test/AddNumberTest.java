@@ -61,6 +61,7 @@ public class AddNumberTest {
 	@Test
 	public void test03() throws Exception{
 		AddNumber spy= PowerMockito.spy(addNumber);
+		System.out.println(spy);
 		PowerMockito.doReturn("2").when(spy,"add", Mockito.any());
 		System.out.println(spy.addNum());
 	}
@@ -72,6 +73,7 @@ public class AddNumberTest {
 	@Test
 	public void test04() throws Exception{
 		AddNumber mock= Mockito.mock(AddNumber.class);
+		System.out.println(mock);
 		Mockito.when(mock.add(Mockito.any())).thenReturn("2");
 		System.out.println("addNum返回："+mock.addNum());
 	}
