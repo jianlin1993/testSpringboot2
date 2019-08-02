@@ -16,6 +16,11 @@
 
    <properties>
       <java.version>1.8</java.version>
+         <powermock.version>1.6.6</powermock.version>
+         <jacoco.version>0.8.3</jacoco.version>
+         <surefireArgLine>
+            -javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/${jacoco.version}/org.jacoco.agent-${jacoco.version}-runtime.jar=destfile=${project.build.directory}/jacoco.exec
+         </surefireArgLine>
    </properties>
 
    <dependencies>
@@ -65,85 +70,8 @@
          <version>2.3.3</version>
       </dependency>
 
-<!--      <dependency>
-         <groupId>org.testng</groupId>
-         <artifactId>testng</artifactId>
-         <version>6.9.10</version>
-         <scope>test</scope>
-      </dependency>
 
-      <dependency>
-         <groupId>org.powermock</groupId>
-         <artifactId>powermock-api-mockito</artifactId>
-         <version>1.6.5</version>
-      </dependency>
 
-      &lt;!&ndash; https://mvnrepository.com/artifact/org.mockito/mockito-core &ndash;&gt;
-      <dependency>
-         <groupId>org.mockito</groupId>
-         <artifactId>mockito-core</artifactId>
-         <version>2.13.0</version>
-         <scope>test</scope>
-      </dependency>
-
-      <dependency>
-         <groupId>net.bytebuddy</groupId>
-         <artifactId>byte-buddy</artifactId>
-         <version>1.8.16</version>
-      </dependency>
-      <dependency>
-         <groupId>net.bytebuddy</groupId>
-         <artifactId>byte-buddy-agent</artifactId>
-         <version>1.8.16</version>
-         <scope>test</scope>
-      </dependency>-->
-
-      <dependency>
-         <groupId>org.testng</groupId>
-         <artifactId>testng</artifactId>
-         <version>6.8</version>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.mockito</groupId>
-         <artifactId>mockito-core</artifactId>
-         <version>1.10.19 </version>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.powermock</groupId>
-         <artifactId>powermock-api-mockito</artifactId>
-         <version>1.6.5</version>
-         <scope>test</scope>
-         <exclusions>
-            <exclusion>
-               <artifactId>mockito-core</artifactId>
-               <groupId>org.mockito</groupId>
-            </exclusion>
-         </exclusions>
-      </dependency>
-      <dependency>
-         <groupId>org.powermock</groupId>
-         <artifactId>powermock-module-testng</artifactId>
-         <version>1.6.5</version>
-         <scope>test</scope>
-         <exclusions>
-            <exclusion>
-               <artifactId>testng</artifactId>
-               <groupId>org.testng</groupId>
-            </exclusion>
-         </exclusions>
-      </dependency>
-      <dependency>
-         <groupId>org.powermock</groupId>
-         <artifactId>powermock-core</artifactId>
-         <version>1.6.5</version>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.powermock</groupId>
-         <artifactId>powermock-module-junit4</artifactId>
-         <version>1.6.6</version>             </dependency>
       <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
       <dependency>
          <groupId>org.apache.poi</groupId>
@@ -216,6 +144,66 @@
          <artifactId>httpcore</artifactId>
          <version>4.4.6</version>
       </dependency>
+
+
+      <dependency>
+         <groupId>org.testng</groupId>
+         <artifactId>testng</artifactId>
+         <version>6.8</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.mockito</groupId>
+         <artifactId>mockito-core</artifactId>
+         <version>1.10.19 </version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.powermock</groupId>
+         <artifactId>powermock-api-mockito</artifactId>
+         <version>1.6.6</version>
+         <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <artifactId>mockito-core</artifactId>
+               <groupId>org.mockito</groupId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+      <dependency>
+         <groupId>org.powermock</groupId>
+         <artifactId>powermock-module-testng</artifactId>
+         <version>1.6.6</version>
+         <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <artifactId>testng</artifactId>
+               <groupId>org.testng</groupId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+      <dependency>
+         <groupId>org.powermock</groupId>
+         <artifactId>powermock-core</artifactId>
+         <version>1.6.6</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.powermock</groupId>
+         <artifactId>powermock-module-junit4-rule-agent</artifactId>
+         <version>${powermock.version}</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.powermock</groupId>
+         <artifactId>powermock-module-junit4</artifactId>
+         <version>1.6.6</version>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.12</version>
+      </dependency>
    </dependencies>
 
    <build>
@@ -228,6 +216,44 @@
             <!--<groupId>pl.project13.maven</groupId>-->
             <!--<artifactId>git-commit-id-plugin</artifactId>-->
          <!--</plugin>-->
+
+
+      <plugin>
+         <groupId>org.jacoco</groupId>
+         <artifactId>jacoco-maven-plugin</artifactId>
+         <version>${jacoco.version}</version>
+         <executions>
+            <execution>
+               <id>post-unit-test</id>
+               <phase>test</phase>
+               <goals>
+                  <goal>report</goal>
+               </goals>
+               <configuration>
+                  <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+               </configuration>
+            </execution>
+         </executions>
+      </plugin>
+
+      <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-surefire-plugin</artifactId>
+         <version>2.19.1</version>
+         <configuration>
+            <!--java8则需要添加-noverify配置-->
+            <argLine>-noverify ${surefireArgLine}
+               -javaagent:${settings.localRepository}/org/powermock/powermock-module-javaagent/${powermock.version}/powermock-module-javaagent-${powermock.version}.jar
+            </argLine>
+            <systemPropertyVariables>
+               <jacoco-agent.destfile>${project.build.directory}/jacoco.exec</jacoco-agent.destfile>
+            </systemPropertyVariables>
+            <includes>
+               <!-- 执行的测试类-->
+               <include>**/AddNumberTest.java</include>
+            </includes>
+         </configuration>
+      </plugin>
       </plugins>
    </build>
 

@@ -4,6 +4,7 @@ package com.wxy.wjl.testng.test;
 
 import com.wxy.wjl.testspringboot2.Controller.AddCO;
 import com.wxy.wjl.testspringboot2.Controller.AddNumber;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -11,12 +12,21 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.agent.PowerMockAgent;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.modules.junit4.rule.PowerMockRule;
 
-@RunWith(PowerMockRunner.class)
+//@RunWith(PowerMockRunner.class)
 @PrepareForTest({AddNumber.class})
 @PowerMockIgnore("javax.management.*")
 public class AddNumberTest {
+
+	@Rule
+	public PowerMockRule rule = new PowerMockRule();
+
+	static {
+		PowerMockAgent.initializeIfNeeded();
+	}
 
 	@InjectMocks
 	AddNumber addNumber;
