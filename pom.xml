@@ -140,6 +140,10 @@
          <version>1.6.5</version>
          <scope>test</scope>
       </dependency>
+      <dependency>
+         <groupId>org.powermock</groupId>
+         <artifactId>powermock-module-junit4</artifactId>
+         <version>1.6.6</version>             </dependency>
       <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
       <dependency>
          <groupId>org.apache.poi</groupId>

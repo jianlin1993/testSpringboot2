@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Map;
 
@@ -55,13 +56,13 @@ public class test1 extends TestNGBaseTest {
 //        Bill bill=buildJavaBeanModel("Bill",Bill.class,testData,this);
         //System.out.println("单对象输出："+bill.getRemark());
 
-//        //构建对象list
-//        List<Bill> billList=buildJavaBeanListModel("BillList",Bill.class,testData,this);
-//        System.out.println(billList.size());
-//        for(Bill billTemp:billList){
-//            System.out.println("对象List输出："+billTemp.getRemark());
-//        }
-            Assert.assertEquals(1,0);
+        //构建对象list
+        List<Bill> billList=buildJavaBeanListModel("BillList",Bill.class,testData,this);
+        System.out.println(billList.size());
+        for(Bill billTemp:billList){
+            System.out.println("对象List输出："+billTemp.getRemark());
+        }
+            //Assert.assertEquals(1,0);
 
     }
 }

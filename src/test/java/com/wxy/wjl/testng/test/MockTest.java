@@ -42,4 +42,17 @@ public class MockTest {
 
     }
 
+    /**
+     * testNG整合mock测试   测试循环执行 mock
+     */
+    @Test
+    public  void test02(){
+        Bill bill=new Bill();
+        bill.setRemark("testNG");
+        Mockito.when(billMapper.getBill(Mockito.anyString())).thenReturn(null).thenReturn(bill);
+        Bill billRsp=billController1.getUser2("0");
+        logger.debug(billRsp.getNo()+" ");
+        logger.info(billRsp.getRemark());
+        logger.error(billRsp.getTxTyp());
+    }
 }

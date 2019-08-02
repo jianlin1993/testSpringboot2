@@ -17,6 +17,21 @@ public class billController {
     @Autowired
     private BillMapper billMapper;
 
+    /**
+     * 测试并发
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("test1")
+    public void test() throws Exception{
+        StringBuffer sb1=new StringBuffer();
+        StringBuffer sb2=new StringBuffer();
+        System.out.println(sb1 + "   "+sb2);
+        System.out.println(sb1 == sb2);
+    }
+
+
     @ResponseBody
     @RequestMapping("billinfo/{jrnNo}")
     public Bill getUser(@PathVariable String jrnNo){
@@ -24,6 +39,21 @@ public class billController {
         Bill bill = billMapper.getBill(no);
         return bill;
     }
+
+    @ResponseBody
+    @RequestMapping("billinfo3/{jrnNo}")
+    public Bill getUser2(@PathVariable String jrnNo){
+        Bill bill=null;
+        for(int i=0;i<2;i++){
+            System.out.println("循环次数i:"+i);
+            bill = billMapper.getBill(jrnNo);
+            if(bill != null){
+                break;
+            }
+        }
+        return bill;
+    }
+
 
     @ResponseBody
     @RequestMapping("billlist")

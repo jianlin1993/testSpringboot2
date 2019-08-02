@@ -1,15 +1,9 @@
 package com.wxy.wjl.testng;
 
 import com.wxy.wjl.testng.common.Constant;
-import org.testng.IAnnotationTransformer;
-import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
-import org.testng.annotations.ITestAnnotation;
 import org.testng.collections.Lists;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.List;
 
 public class TestNGListener extends TestListenerAdapter  {
@@ -39,5 +33,4 @@ public class TestNGListener extends TestListenerAdapter  {
 			retryAnalyzer.reSetCount();
 		}
 	}
-
 }
