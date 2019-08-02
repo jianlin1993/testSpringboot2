@@ -120,17 +120,17 @@ public class DbUtilsHelp {
     }
     public Object selectCol(String sql,String columnName,Object[] params){
         this.queryRunner=new QueryRunner(this.getDataSource());
-        Map map=null;
+        Object object=null;
         try {
             if(params == null){
-                map=this.queryRunner.query(sql,new ScalarHandler<>(columnName));
+                object=this.queryRunner.query(sql,new ScalarHandler<>(columnName));
             }else{
-                map=this.queryRunner.query(sql,new ScalarHandler<>(columnName),params);
+                object=this.queryRunner.query(sql,new ScalarHandler<>(columnName),params);
             }
         }catch (SQLException e){
             logger.error("执行selectCol发生错误：",e);
         }
-        return map;
+        return object;
     }
 
     /**
