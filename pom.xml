@@ -217,8 +217,8 @@
             <!--<artifactId>git-commit-id-plugin</artifactId>-->
          <!--</plugin>-->
 
-
-      <plugin>
+<!-- ==========================PowerMock Agent方式===============================-->
+<!--      <plugin>
          <groupId>org.jacoco</groupId>
          <artifactId>jacoco-maven-plugin</artifactId>
          <version>${jacoco.version}</version>
@@ -241,7 +241,7 @@
          <artifactId>maven-surefire-plugin</artifactId>
          <version>2.19.1</version>
          <configuration>
-            <!--java8则需要添加-noverify配置-->
+            &lt;!&ndash;java8则需要添加-noverify配置&ndash;&gt;
             <argLine>-noverify ${surefireArgLine}
                -javaagent:${settings.localRepository}/org/powermock/powermock-module-javaagent/${powermock.version}/powermock-module-javaagent-${powermock.version}.jar
             </argLine>
@@ -249,11 +249,69 @@
                <jacoco-agent.destfile>${project.build.directory}/jacoco.exec</jacoco-agent.destfile>
             </systemPropertyVariables>
             <includes>
-               <!-- 执行的测试类-->
+               &lt;!&ndash; 执行的测试类&ndash;&gt;
                <include>**/AddNumberTest.java</include>
             </includes>
          </configuration>
-      </plugin>
+      </plugin>-->
+
+
+         <!-- ====================================Jacoco离线方式==================================== -->
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+               <source>1.8</source>
+               <target>1.8</target>
+               <encoding>${project.build.sourceEncoding}</encoding>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco.version}</version>
+            <executions>
+               <execution>
+                  <id>default-instrument</id>
+                  <goals>
+                     <goal>instrument</goal>
+                  </goals>
+               </execution>
+               <execution>
+                  <id>default-restore-instrumented-classes</id>
+                  <goals>
+                     <goal>restore-instrumented-classes</goal>
+                  </goals>
+               </execution>
+               <execution>
+                  <id>report</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                     <goal>report</goal>
+                  </goals>
+                  <configuration>
+                     <dataFile>${project.build.directory}/coverage.exec</dataFile>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19.1</version>
+            <configuration>
+               <systemPropertyVariables>
+                  <jacoco-agent.destfile>${project.build.directory}/coverage.exec</jacoco-agent.destfile>
+               </systemPropertyVariables>
+               <includes>
+                  <include>**/AddNumber2Test.java</include>
+               </includes>
+            </configuration>
+         </plugin>
+
+
+
       </plugins>
    </build>
 

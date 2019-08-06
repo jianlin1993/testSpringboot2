@@ -39,6 +39,20 @@ public class test1 extends TestNGBaseTest {
         }
     }
 
+    //db测试
+    @Test
+    public void testDBSelectCol(){
+        Object object=dbUtilsHelp.selectCol("select * from usr;","USR_NM");
+        System.out.println(object);
+    }
+
+    //db测试
+    @Test
+    public void testDBSelectOne(){
+        Object object=dbUtilsHelp.selectOne("select * from usr where USR_NM = '王建林';");
+        System.out.println(object);
+    }
+
     //dubbo测试
 //    @Test
 //    public void testDubbo(){
