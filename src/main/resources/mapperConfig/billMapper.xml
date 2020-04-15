@@ -12,7 +12,7 @@
    </resultMap>
 
 
-   <select id="getBill" resultType="com.wxy.wjl.testspringboot2.domain.Bill">
+   <select id="getBill" resultType="com.wxy.wjl.testspringboot2.domain.Bill" >
       SELECT * FROM bill WHERE no = #{jrnNo}
    </select>
 
@@ -20,6 +20,9 @@
       SELECT * FROM bill
    </select>
 
+   <select id="getBillList" resultMap="BillList" parameterType="java.lang.String">
+      SELECT * FROM bill where no in ${str}
+   </select>
 
    <select id="getBillByNo" resultType="com.wxy.wjl.testspringboot2.domain.Bill">
       SELECT * FROM bill WHERE NO = #{no}

@@ -33,10 +33,13 @@ public class test1 extends TestNGBaseTest {
     //db测试
     @Test
     public void testDB(){
-        List<Map<String,Object>> list=dbUtilsHelp.selectList("select * from usr;");
-        for(Map<String,Object> map : list){
-            System.out.println(map.get("USR_NM"));
-        }
+//        List<Map<String,Object>> list=dbUtilsHelp.selectList("select * from usr;");
+//        for(Map<String,Object> map : list){
+//            System.out.println(map.get("USR_NM"));
+//        }
+        dbUtilsHelp.insert("insert into usr values(4,'ceshi','ceshi');");
+
+
     }
 
     //db测试
@@ -79,4 +82,6 @@ public class test1 extends TestNGBaseTest {
             //Assert.assertEquals(1,0);
 
     }
+
+
 }

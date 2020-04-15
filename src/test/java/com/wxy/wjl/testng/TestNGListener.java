@@ -21,16 +21,16 @@ public class TestNGListener extends TestListenerAdapter  {
 	}
 
 
-	@Override
-	public void onTestFailure(ITestResult result) {
-		super.onTestFailure(result);
-		testFailed.add(result.getMethod().getMethodName());
-		retryCount++;
-		//是否达到重发最大次数
-		if(retryCount % Constant.MAX_RETRY_NUM ==0){
-			TestNGRetry retryAnalyzer = (TestNGRetry) result.getMethod().getRetryAnalyzer();
-			System.out.println("重置失败次数");
-			retryAnalyzer.reSetCount();
-		}
-	}
+//	@Override
+//	public void onTestFailure(ITestResult result) {
+//		super.onTestFailure(result);
+//		testFailed.add(result.getMethod().getMethodName());
+//		retryCount++;
+//		//是否达到重发最大次数
+//		if(retryCount % Constant.MAX_RETRY_NUM ==0){
+//			TestNGRetry retryAnalyzer = (TestNGRetry) result.getMethod().getRetryAnalyzer();
+//			System.out.println("重置失败次数");
+//			retryAnalyzer.reSetCount();
+//		}
+//	}
 }

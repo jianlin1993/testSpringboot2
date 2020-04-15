@@ -14,6 +14,8 @@ import org.testng.annotations.Test;
 
 public class MockTest {
 
+    //侧搜git
+
     Logger logger= LoggerFactory.getLogger(MockTest.class);
 
     @Mock
@@ -30,7 +32,7 @@ public class MockTest {
     /**
      * testNG整合mock测试
      */
-    @Test
+/*    @Test
     public  void test01(){
         Bill bill=new Bill();
         bill.setRemark("testNG");
@@ -40,12 +42,12 @@ public class MockTest {
         logger.info(billRsp.getRemark());
         logger.error(billRsp.getTxTyp());
 
-    }
+    }*/
 
     /**
      * testNG整合mock测试   测试循环执行 mock
      */
-    @Test
+/*    @Test
     public  void test02(){
         Bill bill=new Bill();
         bill.setRemark("testNG");
@@ -54,5 +56,5 @@ public class MockTest {
         logger.debug(billRsp.getNo()+" ");
         logger.info(billRsp.getRemark());
         logger.error(billRsp.getTxTyp());
-    }
+    }*/
 }
