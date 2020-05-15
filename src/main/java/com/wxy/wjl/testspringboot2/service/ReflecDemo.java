@@ -4,6 +4,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+/**
+ * 反射测试
+ */
 public class ReflecDemo {
 
     public static void main (String[] args) throws Exception{

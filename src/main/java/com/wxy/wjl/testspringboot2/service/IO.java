@@ -9,7 +9,7 @@ import java.nio.channels.FileChannel;
 /**
  * 测试IO流
  */
-public class IOTest {
+public class IO {
 
     /**
      * BufferedOutputStream

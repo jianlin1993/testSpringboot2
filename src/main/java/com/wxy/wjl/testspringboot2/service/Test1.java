@@ -1,6 +1,7 @@
 package com.wxy.wjl.testspringboot2.service;
 
 import com.alibaba.fastjson.JSON;
+import com.wxy.wjl.testspringboot2.domain.cusannotation.Person;
 import com.wxy.wjl.testspringboot2.utils.CommonUtils;
 import org.testng.annotations.Test;
 

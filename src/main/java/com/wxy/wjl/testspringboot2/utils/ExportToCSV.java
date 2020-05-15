@@ -1,4 +1,4 @@
-package com.wxy.wjl.testspringboot2.service;
+package com.wxy.wjl.testspringboot2.utils;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;

@@ -1,4 +1,4 @@
-package com.wxy.wjl.testspringboot2.service;
+package com.wxy.wjl.testspringboot2.exercise;
 
 
 import lombok.Data;
@@ -18,8 +18,10 @@ import java.util.stream.Collectors;
  * int schoolid;
  * int studentCount; //学生数量
  * }
- * 分别有2个list：List<school> schools;List<lesson> lessons，存放school与lesson数据，lessions含有多条相同schoolid的数据，
- * 现在需要统计每个学校上课的学生总数，并且将学校数据按照上课学生总数降序排列，将上课学生总数>1000的学校名字存放到一个list中。
+ * 分别有2个list：List<school> schools;List<lesson> lessons，存放school与lesson数据，
+ * lessions含有多条相同schoolid的数据，
+ * 现在需要统计每个学校上课的学生总数，并且将学校数据按照上课学生总数降序排列，
+ * 将上课学生总数>1000的学校名字存放到一个list中。
  */
 public class SchoolTest {
 

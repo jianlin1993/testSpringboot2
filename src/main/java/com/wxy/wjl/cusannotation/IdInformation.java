@@ -1,4 +1,4 @@
-package com.wxy.wjl.testspringboot2.service;
+package com.wxy.wjl.cusannotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

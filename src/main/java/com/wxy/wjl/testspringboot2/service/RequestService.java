@@ -4,6 +4,7 @@ import com.alibaba.druid.filter.config.ConfigTools;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.googlecode.aviator.AviatorEvaluator;
+import com.wxy.wjl.testspringboot2.utils.HttpUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
@@ -341,7 +342,7 @@ public class RequestService {
 		JSONObject jsonObject=new JSONObject();
 		jsonObject.put("hospitalName","积水潭医院");
 		String para= JSON.toJSONString(jsonObject);
-		String rsp=HttpUtils.doPost2(para,"https://hmly.tebon.com.cn:10999/api/datacenter/hospitalAssetsList/list");
+		String rsp= HttpUtils.doPost2(para,"https://hmly.tebon.com.cn:10999/api/datacenter/hospitalAssetsList/list");
 		System.out.println(rsp);
 	}
 
