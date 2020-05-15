@@ -1,4 +1,4 @@
-package com.wxy.wjl.testspringboot2.utils;
+package com.wxy.wjl.testspringboot2.config;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;

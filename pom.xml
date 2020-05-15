@@ -32,14 +32,26 @@
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-test</artifactId>
-         <scope>test</scope>
+<!--         <scope>test</scope>  注释掉  不然只能在test文件夹下用-->
       </dependency>
 
       <dependency>
          <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-cache</artifactId>
+      </dependency>
+<!--      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-actuator</artifactId>
+      </dependency>-->
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-thymeleaf</artifactId>
       </dependency>
-
+      <dependency>
+         <groupId>com.alibaba</groupId>
+         <artifactId>druid-spring-boot-starter</artifactId>
+         <version>1.1.22</version>
+      </dependency>
       <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
       <dependency>
          <groupId>javax.servlet</groupId>
@@ -72,13 +84,12 @@
 
 
 
-      <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+      <!--POI Excel操作-->
       <dependency>
          <groupId>org.apache.poi</groupId>
          <artifactId>poi</artifactId>
          <version>3.17</version>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
       <dependency>
          <groupId>org.apache.poi</groupId>
          <artifactId>poi-ooxml</artifactId>
@@ -150,7 +161,6 @@
          <groupId>org.testng</groupId>
          <artifactId>testng</artifactId>
          <version>6.8</version>
-         <scope>test</scope>
       </dependency>
       <dependency>
          <groupId>org.mockito</groupId>
@@ -205,14 +215,52 @@
          <version>4.12</version>
       </dependency>
 
-
+      <!-- spring缓存-->
+      <dependency>
+         <groupId>com.google.guava</groupId>
+         <artifactId>guava</artifactId>
+         <version>18.0</version>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context-support</artifactId>
+         <version>4.3.17.RELEASE</version>
+      </dependency>
+      <!--jwt依赖 -->
+      <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+      <dependency>
+         <groupId>io.jsonwebtoken</groupId>
+         <artifactId>jjwt</artifactId>
+         <version>0.9.0</version>
+      </dependency>
+      <!-- CollectionUtils -->
+      <dependency>
+         <groupId>commons-collections</groupId>
+         <artifactId>commons-collections</artifactId>
+         <version>3.2.2</version>
+      </dependency>
+      <dependency>
+         <groupId>cglib</groupId>
+         <artifactId>cglib</artifactId>
+         <version>2.2.2</version>
+      </dependency>
+<!--      <dependency>
+         <groupId>asm</groupId>
+         <artifactId>asm</artifactId>
+         <version>3.1</version>
+      </dependency>-->
    </dependencies>
+
+
 
    <build>
       <plugins>
          <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
+<!--            <configuration>-->
+<!--               <includeSystemScope>true</includeSystemScope>-->
+<!--            </configuration>-->
          </plugin>
          <!--<plugin>-->
             <!--<groupId>pl.project13.maven</groupId>-->

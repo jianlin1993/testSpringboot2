@@ -13,7 +13,7 @@ import static com.wxy.wjl.testspringboot2.config.SocketPool.add;
 import static com.wxy.wjl.testspringboot2.config.SocketPool.remove;
 
 
-/**
+/**“Socket是应用层与TCP/IP协议族通信的中间软件抽象层，它是一组接口，提供一套调用TCP/IP协议的API。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP/IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部，让Socket去组织数据，以符合指定的协议。”
  * Socket操作处理类
  */
 @Slf4j
