@@ -11,7 +11,7 @@ public class ReflecDemo {
 
     public static void main (String[] args) throws Exception{
         //获取Son类的Class对象
-        Class clazz=Class.forName("com.wjl.wxy.learn.practice.api.service.Son");
+        Class clazz=Class.forName("com.wxy.wjl.testspringboot2.domain.Student");
         //获取 Person 类的所有方法信息
         Method[] method=clazz.getDeclaredMethods();
         for(Method m:method){

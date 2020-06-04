@@ -235,4 +235,19 @@ public class Test1 {
             return sub(n,box);
         }
     }
+
+    /**
+     * split
+     * @throws Exception
+     */
+    @Test
+    public void test12() throws Exception{
+
+        String[] val="150|150|0".split("\\|");
+        String lonAmt=val[0];
+        String unpaidAmt=val[1];
+        String lstCredAmt=val[2];
+        System.out.println(unpaidAmt);
+        System.out.println(new DecimalFormat("#,##0.00").format(new BigDecimal(unpaidAmt)));
+    }
 }
