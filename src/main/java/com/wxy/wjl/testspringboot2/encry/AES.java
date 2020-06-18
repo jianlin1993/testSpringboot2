@@ -91,7 +91,7 @@ public class AES {
 
             cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             //初始化密码器，第一个参数为加密(Encrypt_mode)或者解密(Decrypt_mode)操作，第二个参数为使用的KEY
-            //  还可以有第三个参数  初始变量-增加安全性
+            // 当模式是CBC的时候必须设置偏移量 偏移量字符串必须是16位
             cipher.init(Cipher.DECRYPT_MODE, key);
             result = cipher.doFinal(result);
 
