@@ -9,9 +9,11 @@ package com.wxy.wjl.testspringboot2.job.dal.dao;
 
 
 import com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobJnlDO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 public interface OpsJobJnlMapper {
 	OpsJobJnlDO selectByPrimaryKey(OpsJobJnlDO entity);
 

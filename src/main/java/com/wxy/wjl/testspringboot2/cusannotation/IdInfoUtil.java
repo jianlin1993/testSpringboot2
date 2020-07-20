@@ -1,4 +1,4 @@
-package com.wxy.wjl.cusannotation;
+package com.wxy.wjl.testspringboot2.cusannotation;
 
 import com.wxy.wjl.testspringboot2.domain.cusannotation.Person;
 

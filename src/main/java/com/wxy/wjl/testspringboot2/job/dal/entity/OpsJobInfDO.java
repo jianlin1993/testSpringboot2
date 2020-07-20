@@ -6,14 +6,13 @@
  */
 package com.wxy.wjl.testspringboot2.job.dal.entity;
 
-import com.murong.ecp.bp.common.util.BaseDO;
 import lombok.Data;
 
 /**
  * 定时任务信息表
  */
 @Data
-public class OpsJobInfDO extends BaseDO {
+public class OpsJobInfDO  {
 
     /**
     * ID编号

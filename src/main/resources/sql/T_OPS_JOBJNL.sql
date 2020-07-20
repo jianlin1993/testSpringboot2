@@ -1,20 +1,3 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : cba-TSDOPS
- Source Server Type    : Oracle
- Source Server Version : 120200
- Source Host           : 10.0.0.6:1521
- Source Schema         : TSDOPS
-
- Target Server Type    : Oracle
- Target Server Version : 120200
- File Encoding         : 65001
-
- Date: 20/07/2020 18:35:55
-*/
-
-
 -- ----------------------------
 -- Table structure for T_OPS_JOBJNL
 -- ----------------------------
@@ -57,24 +40,30 @@ COMMENT ON TABLE "TSDOPS"."T_OPS_JOBJNL" IS '定时任务流水表';
 -- Primary Key structure for table T_OPS_JOBJNL
 -- ----------------------------
 ALTER TABLE "TSDOPS"."T_OPS_JOBJNL" ADD CONSTRAINT "PK_T_OPS_JOBJNL" PRIMARY KEY ("ID");
-
-
 -- ----------------------------
 -- Indexes structure for table T_OPS_JOBJNL
 -- ----------------------------
-CREATE INDEX "TSDOPS"."N11_T_OPS_JOBJNL"
-  ON "TSDOPS"."T_OPS_JOBJNL" ("NAME" ASC)
-  LOGGING
-  TABLESPACE "TBS_TSDOPS_DATA"
-  VISIBLE
-PCTFREE 10
-INITRANS 2
-STORAGE (
-  INITIAL 8388608 
-  NEXT 8388608 
-  MINEXTENTS 1
-  MAXEXTENTS 2147483645
-  BUFFER_POOL DEFAULT
-  FLASH_CACHE DEFAULT
-)
-   USABLE;
+CREATE INDEX "TSDOPS"."N11_T_OPS_JOBJNL" ON "TSDOPS"."T_OPS_JOBJNL" ("NAME" ASC);
+--------------MYSQL
+CREATE TABLE `T_OPS_JOBJNL` (
+  `ID` int(20)  NOT NULL ,
+  `NAME` VARCHAR(255 )  NOT NULL ,
+  `GRP_NM` VARCHAR(80 )  DEFAULT 'PUB'  NOT NULL ,
+  `URL` VARCHAR(256 )  DEFAULT ' '  NOT NULL ,
+  `CRON` VARCHAR(80 )  DEFAULT ' '  NOT NULL ,
+  `TM_OUT` int  DEFAULT 60  NOT NULL ,
+  `REMARK` VARCHAR(255 )  DEFAULT '' ,
+  `BEG_TM` VARCHAR(14 )  DEFAULT ' ' ,
+  `END_TM` VARCHAR(14 )  DEFAULT ' ' ,
+  `STATUS` VARCHAR(1 )  DEFAULT '0' ,
+  `RESULT_MSG` VARCHAR(2048 )  DEFAULT ' ' ,
+  `REQ_ID` VARCHAR(64 )  DEFAULT '' ,
+  `NOD_ID` VARCHAR(20 )  DEFAULT '' ,
+  `TM_SMP` VARCHAR(14 )  DEFAULT '' ,
+  `UPD_OPR` VARCHAR(10 )  DEFAULT ''
+);
+ALTER TABLE `T_OPS_JOBJNL` ADD CONSTRAINT `PK_T_OPS_JOBJNL` PRIMARY KEY (`ID`);
+CREATE INDEX `N11_T_OPS_JOBJNL` ON `T_OPS_JOBJNL` (`NAME`);
+
+
+

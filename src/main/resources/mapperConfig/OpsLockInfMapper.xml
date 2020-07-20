@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="GBK"?>
+<!-- Created by xu_lw on 2020-02-21 16:03:17. -->
+<mapper namespace="com.wxy.wjl.testspringboot2.job.dal.dao.OpsLockInfMapper">
+
+    <resultMap id="BillList" type="com.wxy.wjl.testspringboot2.job.dal.entity.OpsLockInfDO" >
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="upd_opr" property="updOpr" jdbcType="VARCHAR"/>
+        <result column="owner" property="owner" jdbcType="VARCHAR"/>
+        <result column="lock_time" property="lockTime" jdbcType="VARCHAR"/>
+        <result column="tm_smp" property="tmSmp" jdbcType="VARCHAR"/>
+        <result column="nod_id" property="nodId" jdbcType="VARCHAR"/>
+        <result column="req_id" property="reqId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectByPrimaryKeyForUpdate" resultType="java.util.HashMap">
+        select <include refid="base_column_list"/>
+        from T_OPS_LOCKINF where name = #{name} for update
+    </select>
+
+    <select id="selectByPrimaryKey" resultType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsLockInfDO">
+        select <include refid="base_column_list"/>
+        from T_OPS_LOCKINF where name = #{name}
+    </select>
+
+    <update id="updateByPrimaryKey" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsLockInfDO">
+        update  T_OPS_LOCKINF
+        <trim prefix="set" suffixOverrides = ",">
+            <if test="isNotNull(updOpr)">upd_opr=#{updOpr},</if>
+            <if test="isNotNull(owner)">url=#{owner},</if>
+            <if test="isNotNull(lockTime)">lock_time=#{lockTime},</if>
+            <if test="isNotNull(tmSmp)">tm_smp=#{tmSmp},</if>
+            <if test="isNotNull(nodId)">nod_id=#{nodId},</if>
+            <if test="isNotNull(reqId)">req_id=#{reqId},</if>
+        </trim>
+        where name = #{name}
+    </update>
+
+
+    <insert id="insert" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobJnlDO">
+        insert  into T_OPS_LOCKINF( name, upd_opr, owner, lock_time, tm_smp, nod_id, req_id)
+        values( #{name}, #{owner}, #{lockTime}, #{tmSmp}, #{nodId}, #{reqId})
+    </insert>
+
+
+
+    <sql id="base_column_list">
+        name, upd_opr, owner, lock_time, tm_smp, nod_id, req_id
+    </sql>
+
+    <select id="selectSystemTime" resultType="java.util.HashMap">
+        select DATE_FORMAT(now(),'%Y%m%d%H%i%S') SYSTEM_TIME from dual
+    </select>
+
+</mapper>

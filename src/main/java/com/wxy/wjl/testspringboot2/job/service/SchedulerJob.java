@@ -55,7 +55,7 @@ public class SchedulerJob implements Job {
 			log.error(t, t);
 		} finally {
 			jobs.remove(jobInfDO.getName());
-			bizCtx.getDataBaseUtil().closeAll();
+			//bizCtx.getDataBaseUtil().closeAll();
 		}
 	}
 

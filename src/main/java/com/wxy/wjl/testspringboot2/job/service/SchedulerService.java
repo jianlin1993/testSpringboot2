@@ -40,6 +40,8 @@ public class SchedulerService implements InitializingBean, DisposableBean, Runna
 
 	@Autowired
 	private OpsJobJnlMapper jobJnlMapper;
+	@Autowired
+	SchLockInfService schLockInfService;
 
 	private Scheduler scheduler;
 
@@ -155,16 +157,16 @@ public class SchedulerService implements InitializingBean, DisposableBean, Runna
 			try {
 				doRun();
 			} catch (Exception e) {
-				log.info(e, e);
+				log.info(e.getMessage());
 			} finally {
-				bizCtx.getDataBaseUtil().closeAll();
+				//bizCtx.getDataBaseUtil().closeAll();
 			}
 		}
 	}
 
 	public void doRun() {
 		try {
-			boolean flag = SchLockInfService.tryLock(bizCtx, "ecp-job");
+			boolean flag = schLockInfService.tryLock( "ecp-job");
 			SystemService.setMaster(flag);
 
 			if (!flag) {
@@ -200,7 +202,7 @@ public class SchedulerService implements InitializingBean, DisposableBean, Runna
 					}
 				}
 				// 物理删除这些已经删除的定时任务，由于库表限制name值唯一，所以这里必须要添加这个物理删除操作
-				if (!StringUtils.equals("", ids)) {
+/*				if (!StringUtils.equals("", ids)) {
 					ids = ids.substring(0, ids.length() - 1);
 					String sql = "delete from T_OPS_JOBINF where id in (" + ids + ") and delete_flag='1'";
 
@@ -209,7 +211,7 @@ public class SchedulerService implements InitializingBean, DisposableBean, Runna
 					if (ret != i) {
 						log.info("---->delete error，should delete：" + i + "，actually：" + ret + "！");
 					}
-				}
+				}*/
 			}
 		} catch (Exception e) {
 			log.error(e.toString(), e);

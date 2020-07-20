@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="GBK"?>
 <!-- Created by xu_lw on 2020-02-21 16:03:17. -->
 <mapper namespace="com.wxy.wjl.testspringboot2.job.dal.dao.OpsJobJnlMapper">
+
+    <resultMap id="BillList" type="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobJnlDO" >
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="grp_nm" property="grpNm" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="cron" property="cron" jdbcType="VARCHAR"/>
+        <result column="tm_out" property="tmOut" jdbcType="NUMERIC"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="beg_tm" property="begTm" jdbcType="VARCHAR"/>
+        <result column="end_tm" property="endTm" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="result_msg" property="resultMsg" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
     <select id="selectByPrimaryKey" resultType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobJnlDO">
         select <include refid="base_column_list"/>
         from T_OPS_JOBJNL where id = #{id}

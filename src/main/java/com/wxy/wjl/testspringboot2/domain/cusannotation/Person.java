@@ -1,6 +1,6 @@
 package com.wxy.wjl.testspringboot2.domain.cusannotation;
 
-import com.wxy.wjl.cusannotation.IdInformation;
+import com.wxy.wjl.testspringboot2.cusannotation.IdInformation;
 import lombok.Data;
 
 @Data

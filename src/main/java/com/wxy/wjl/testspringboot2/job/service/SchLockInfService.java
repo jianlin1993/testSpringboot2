@@ -1,10 +1,14 @@
 package com.wxy.wjl.testspringboot2.job.service;
 
+import com.wxy.wjl.testspringboot2.job.dal.dao.OpsLockInfMapper;
+import com.wxy.wjl.testspringboot2.job.dal.entity.OpsLockInfDO;
 import com.wxy.wjl.testspringboot2.job.utils.OpsUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.util.HashMap;
@@ -18,23 +22,33 @@ import java.util.HashMap;
  * copyright @2018 北京沐融信息科技股份有限公司
  */
 @Slf4j
+@Service
 public class SchLockInfService {
 
-	public static boolean tryLock( String name) throws Exception, ParseException {
+	@Mapper
+	OpsLockInfMapper opsLockInfMapper;
+
+
+	public boolean tryLock( String name) throws Exception, ParseException {
 		//
 		String nodeId = OpsUtil.getNodeId();
 
 		HashMap rec = null;
 		while (true) {
-			String sql = "select * from t_ops_lockinf where name='" + name + "' for update";
-			rec = bizCtx.getDataBaseUtil().readRecord(sql);
+			OpsLockInfDO opsLockInfDO=new OpsLockInfDO();
+			opsLockInfDO.setName(name);
+			rec=opsLockInfMapper.selectByPrimaryKeyForUpdate(opsLockInfDO);
 			if (rec == null || rec.isEmpty()) {
-				//
-				sql = "insert into t_ops_lockinf(name,upd_opr,owner,lock_time) values(?, ?, ?, ?)";
+				//sql = "insert into t_ops_lockinf(name,upd_opr,owner,lock_time) values(?, ?, ?, ?)";
 				try {
 					// modified by Leo @2020年3月21日   System.currentTimeMillis() -> getDatabaseGMTTime(bizCtx)
-					long time = getDatabaseGMTTime(bizCtx);
-					int ret = bizCtx.getDataBaseUtil().execUpdateBind(sql, name, "SYS", nodeId, String.valueOf(time));
+					long time = getDatabaseGMTTime();
+					opsLockInfDO.setName(name);
+					opsLockInfDO.setUpdOpr("SYS");
+					opsLockInfDO.setOwner(nodeId);
+					opsLockInfDO.setLockTime(String.valueOf(time));
+					//int ret = bizCtx.getDataBaseUtil().execUpdateBind(sql, name, "SYS", nodeId, String.valueOf(time));
+					int ret=opsLockInfMapper.insert(opsLockInfDO);
 					log.info("ret:" + ret);
 				} catch (Exception e) {
 					log.error(e.toString(), e);
@@ -49,18 +63,22 @@ public class SchLockInfService {
 		long lockTime = NumberUtils.toLong((String) rec.get("lock_time"));
 		String owner = (String) rec.get("owner");
 
-		String sql = "select to_char(sysdate,'yyyymmddhh24miss') system_time from dual";
-		rec = bizCtx.getDataBaseUtil().readRecord(sql);
-		String tmp = (String) rec.get("system_time");
-		long time = DateUtils.parseDate(tmp, "yyyyMMddHHmmss").getTime();
+		//String tmp = getDatabaseGMTTime();
+		long time = getDatabaseGMTTime();
 		if (time - lockTime > 120 * 1000) {
 			log.info("Time out more than 120S, will try get schedule lock");
 			// 超过1200s则获取锁 ;  modified by Leo @2020年3月21日   System.currentTimeMillis() -> getDatabaseGMTTime(bizCtx)
 			// 锁sql修改 @2020年7月8日 update t_ops_lockinf set lock_time =? where name=? and owner=? ->
-			lockTime = getDatabaseGMTTime(bizCtx);
-			sql = "update t_ops_lockinf set lock_time =?, owner=?, tm_smp=? where name=?";
+			lockTime = getDatabaseGMTTime();
+			//sql = "update t_ops_lockinf set lock_time =?, owner=?, tm_smp=? where name=?";
 			try {
-				int ret = bizCtx.getDataBaseUtil().execUpdateBind(sql, String.valueOf(lockTime), nodeId, DateUtil.getTmSmp(), name);
+				//int ret = bizCtx.getDataBaseUtil().execUpdateBind(sql, String.valueOf(lockTime), nodeId, DateUtil.getTmSmp(), name);
+				OpsLockInfDO opsLockInfDO=new OpsLockInfDO();
+				opsLockInfDO.setLockTime( String.valueOf(lockTime));
+				opsLockInfDO.setOwner(nodeId);
+				opsLockInfDO.setTmSmp(getDatabaseTime());
+				opsLockInfDO.setName(name);
+				int ret =opsLockInfMapper.updateByPrimaryKey(opsLockInfDO);
 				log.info("ret:" + ret);
 				if (ret != 1) {
 					log.warn("Time out! Snatch schedule lock failed");
@@ -75,11 +93,17 @@ public class SchLockInfService {
 			if (StringUtils.equals(owner, nodeId)) {
 				// modified by Leo @2020年3月21日   System.currentTimeMillis() -> getDatabaseGMTTime(bizCtx)
 				// 锁sql修改 @2020年7月8日 update t_ops_lockinf set lock_time =? where name=? and owner=? ->
-				lockTime = getDatabaseGMTTime(bizCtx);
-				sql = "update t_ops_lockinf set lock_time =? where name=? and owner=?";
+				lockTime = getDatabaseGMTTime();
+				//sql = "update t_ops_lockinf set lock_time =? where name=? and owner=?";
 				try {
 					// 更新时间戳
-					int ret = bizCtx.getDataBaseUtil().execUpdateBind(sql, String.valueOf(lockTime), name, nodeId);
+					//int ret = bizCtx.getDataBaseUtil().execUpdateBind(sql, String.valueOf(lockTime), name, nodeId);
+					OpsLockInfDO opsLockInfDO=new OpsLockInfDO();
+					opsLockInfDO.setLockTime( String.valueOf(lockTime));
+					opsLockInfDO.setOwner(nodeId);
+					opsLockInfDO.setTmSmp(getDatabaseTime());
+					opsLockInfDO.setName(name);
+					int ret =opsLockInfMapper.updateByPrimaryKey(opsLockInfDO);
 					log.info("ret:" + ret);
 					if (ret != 1) {
 						log.warn("Get schedule lock failed");
@@ -107,11 +131,16 @@ public class SchLockInfService {
 	 * @modified by: 
 	 * @modified description: 
 	*/
-	private static Long getDatabaseGMTTime(YGBizMessageContext bizCtx) throws YGException, ParseException {
-		String sql = "select to_char(sysdate,'yyyymmddhh24miss') system_time from dual";
-		HashMap rec = bizCtx.getDataBaseUtil().readRecord(sql);
+	private Long getDatabaseGMTTime( ) throws  ParseException {
+		HashMap rec =opsLockInfMapper.selectSystemTime();
 		String tmp = (String) rec.get("system_time");
 		long time = DateUtils.parseDate(tmp, "yyyyMMddHHmmss").getTime();
 		return time;
+	}
+
+	private String getDatabaseTime( )  {
+		HashMap rec =opsLockInfMapper.selectSystemTime();
+		String tmp = (String) rec.get("system_time");
+		return tmp;
 	}
 }

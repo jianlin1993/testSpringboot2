@@ -1,0 +1,16 @@
+
+CREATE TABLE `T_OPS_LOCKINF` (
+  `NAME` VARCHAR(60 )  NOT NULL ,
+  `UPD_OPR` VARCHAR(10 )  NOT NULL ,
+  `OWNER` VARCHAR(60 )  NOT NULL ,
+  `LOCK_TIME` VARCHAR(14 )  NOT NULL ,
+  `TM_SMP` VARCHAR(20 )  NOT NULL ,
+  `NOD_ID` VARCHAR(20 )  NOT NULL ,
+  `REQ_ID` VARCHAR(64 )  NOT NULL
+);
+
+
+-- ----------------------------
+-- Primary Key structure for table T_OPS_LOCKINF
+-- ----------------------------
+ALTER TABLE T_OPS_LOCKINF ADD CONSTRAINT SYS_C00104958 PRIMARY KEY (NAME);
