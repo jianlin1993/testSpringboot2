@@ -1,10 +1,16 @@
 package com.wxy.wjl.testspringboot2.service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.wxy.wjl.testspringboot2.domain.cusannotation.Person;
 import com.wxy.wjl.testspringboot2.utils.CommonUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.testng.annotations.Test;
 
+import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -249,5 +255,82 @@ public class Test1 {
         String lstCredAmt=val[2];
         System.out.println(unpaidAmt);
         System.out.println(new DecimalFormat("#,##0.00").format(new BigDecimal(unpaidAmt)));
+    }
+
+
+    @Test
+    public void test13() throws Exception{
+        JSONObject root=getRoot();
+        String name="test";
+        String rspParams="<format><response><xml name=\"RESPONSE_CODE\" bname=\"response_code\" type=\"string\"/><xml name=\"RESPONSE_MESSAGE\" bname=\"response_message\" type=\"string\"/><xml name=\"timestamp\" bname=\"timestamp\" type=\"string\"/><xml name=\"outstandingBal\" bname=\"outstanding_bal\" type=\"string\"/><xml name=\"dueDate\" bname=\"due_date\" type=\"string\"/><xml name=\"principal\" bname=\"principal\" type=\"string\"/><xml name=\"totalInterest\" bname=\"total_interest\" type=\"string\"/><xml name=\"totalFee\" bname=\"total_fee\" type=\"string\"/><xml name=\"totalTax\" bname=\"total_tax\" type=\"string\"/></response></format>";
+        System.out.println(getResponse(root,name,rspParams));
+        System.out.println(root.toJSONString());
+
+    }
+    private JSONObject getRoot() {
+        return JSONObject.parseObject("{\"swagger\":\"2.0\",\"info\":{\"description\":\"NCBA Gateway-Openapi Standard APIs\",\"version\":\"1.0\",\"title\":\"NCBA Gateway-Openapi Standard APIs\",\"termsOfService\":\"http://localhost:8181/\",\"contact\":{\"name\":\"NCBA\"}},\"host\":\"localhost:8181\",\"basePath\":\"/\",\"tags\":[],\"paths\":{},\"entity\":{}}");
+    }
+    private String getResponse(JSONObject root,String name,String rspParams) throws Exception{
+        JSONObject entity = (JSONObject) root.get("entity");
+        JSONObject entityObject=new JSONObject();
+        entityObject.put("type","Object");
+        SAXReader reader = new SAXReader();
+        Document doc = reader.read(new StringReader(rspParams));
+        Element rspElement = doc.getRootElement();
+        rspElement = rspElement.element("response");
+
+        JSONObject properties=new JSONObject(new LinkedHashMap());
+        properties=rspXml2Json(rspElement,properties);
+        entityObject.put("properties",properties);
+        // 组装数据
+        JSONObject baseRsp=new JSONObject();
+        JSONObject rsp200=JSONObject.parseObject("{\"description\":\"Ok\"}");
+        JSONObject schema=new JSONObject();
+        schema.put("originalRef",name+".object");
+        schema.put("$ref","#/entity/"+name+".object");
+        rsp200.put("schema",schema);
+        JSONObject rsp201=JSONObject.parseObject("{\"description\":\"Created\"}");
+        JSONObject rsp401=JSONObject.parseObject("{\"description\":\"Unauthorized\"}");
+        JSONObject rsp403=JSONObject.parseObject("{\"description\":\"Forbidden\"}");
+        JSONObject rsp404=JSONObject.parseObject("{\"description\":\"Not Found\"}");
+        baseRsp.put("200",rsp200);
+        baseRsp.put("201",rsp201);
+        baseRsp.put("401",rsp401);
+        baseRsp.put("403",rsp403);
+        baseRsp.put("404",rsp404);
+        entity.put(name+".object",entityObject);
+        root.put("entity",entity);
+        return baseRsp.toJSONString();
+    }
+    public static JSONObject rspXml2Json(Element element,JSONObject properties) throws Exception{
+        Iterator iter = element.elementIterator("xml");
+        while( iter.hasNext() ) {
+            Element formatElement = (Element)iter.next();
+            String name = formatElement.attributeValue("name");
+            // 目前只支持双层节点返回
+/*
+            Iterator childIter = formatElement.elementIterator("xml");
+            while(childIter.hasNext()){
+                JSONObject child=new JSONObject();
+
+            }
+
+*/
+
+
+            String type = formatElement.attributeValue("type");
+            JSONObject param = new JSONObject();
+            param.put("description",name);
+            param.put("type",type);
+            properties.put(name,param);
+        }
+        return properties;
+
+    }
+
+    @Test
+    public void test15() throws Exception{
+        long time = DateUtils.parseDate("20200714145024", "yyyyMMddHHmmss").getTime();
+        System.out.println(time);
     }
 }

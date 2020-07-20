@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="GBK"?>
+<!-- Created by xu_lw on 2020-02-20 11:45:57. -->
+<mapper namespace="com.wxy.wjl.testspringboot2.job.dal.dao.OpsJobInfMapper">
+
+    <select id="selectByName" resultType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobInfDO">
+        select <include refid="base_column_list"/>
+        from T_OPS_JOBINF where name = #{name}
+    </select>
+
+    <select id="selectAll" resultType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobInfDO">
+        select <include refid="base_column_list"/>
+        from T_OPS_JOBINF
+    </select>
+
+
+    <select id="selectByPrimaryKey" resultType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobInfDO">
+        select <include refid="base_column_list"/>
+        from T_OPS_JOBINF where id = #{id}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobInfDO">
+        delete from  T_OPS_JOBINF where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="java.lang.String">
+        delete from  T_OPS_JOBINF where id in (${ids})
+    </delete>
+
+    <update id="updateByPrimaryKey2" parameterType="java.lang.String">
+        update t_ops_jobinf
+        set delete_flag = '1'
+        where id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobInfDO">
+        update  T_OPS_JOBINF
+        <trim prefix="set" suffixOverrides = ",">
+            <if test="isNotNull(id)">id=#{id},</if>
+            <if test="isNotNull(name)">name=#{name},</if>
+            <if test="isNotNull(grpNm)">grp_nm=#{grpNm},</if>
+            <if test="isNotNull(url)">url=#{url},</if>
+            <if test="isNotNull(cron)">cron=#{cron},</if>
+            <if test="isNotNull(tmOut)">tm_out=#{tmOut},</if>
+            <if test="isNotNull(remark)">remark=#{remark},</if>
+            <if test="isNotNull(status)">status=#{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobInfDO">
+        update  T_OPS_JOBINF
+        <trim prefix="set" suffixOverrides = ",">
+            <if test="isNotNull(id)">id=#{id},</if>
+            <if test="isNotNull(name)">name=#{name},</if>
+            <if test="isNotNull(grpNm)">grp_nm=#{grpNm},</if>
+            <if test="isNotNull(url)">url=#{url},</if>
+            <if test="isNotNull(cron)">cron=#{cron},</if>
+            <if test="isNotNull(tmOut)">tm_out=#{tmOut},</if>
+            <if test="isNotNull(remark)">remark=#{remark},</if>
+            <if test="isNotNull(status)">status=#{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <insert id="insert" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobInfDO">
+        insert  into T_OPS_JOBINF(id, name, grp_nm, url, cron, tm_out, remark, status)
+        values( #{id}, #{name}, #{grpNm}, #{url}, #{cron}, #{tmOut}, #{remark}, #{status})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobInfDO">
+        insert  into T_OPS_JOBINF
+        <trim prefix="(" suffix=')' suffixOverrides=",">
+            <if test="isNotNull(id)">id,</if>
+            <if test="isNotNull(name)">name,</if>
+            <if test="isNotNull(grpNm)">grp_nm,</if>
+            <if test="isNotNull(url)">url,</if>
+            <if test="isNotNull(cron)">cron,</if>
+            <if test="isNotNull(tmOut)">tm_out,</if>
+            <if test="isNotNull(remark)">remark,</if>
+            <if test="isNotNull(status)">status,</if>
+        </trim>
+        <trim prefix="values(" suffix=')' suffixOverrides=",">
+            <if test="isNotNull(id)">#{id},</if>
+            <if test="isNotNull(name)">#{name},</if>
+            <if test="isNotNull(grpNm)">#{grpNm},</if>
+            <if test="isNotNull(url)">#{url},</if>
+            <if test="isNotNull(cron)">#{cron},</if>
+            <if test="isNotNull(tmOut)">#{tmOut},</if>
+            <if test="isNotNull(remark)">#{remark},</if>
+            <if test="isNotNull(status)">#{status},</if>
+        </trim>
+    </insert>
+
+    <sql id="base_column_list">
+        id, name, grp_nm, url, cron, tm_out, remark, status ,delete_flag
+    </sql>
+
+    <sql id="where_condition">
+        <trim prefix="where" prefixOverrides="and">
+            <if test="isNotNull(id)">id=#{id},</if>
+            <if test="isNotNull(name)">name=#{name},</if>
+            <if test="isNotNull(grpNm)">grp_nm=#{grpNm},</if>
+            <if test="isNotNull(url)">url=#{url},</if>
+            <if test="isNotNull(cron)">cron=#{cron},</if>
+            <if test="isNotNull(tmOut)">tm_out=#{tmOut},</if>
+            <if test="isNotNull(remark)">remark=#{remark},</if>
+            <if test="isNotNull(status)">status=#{status},</if>
+        </trim>
+    </sql>
+</mapper>

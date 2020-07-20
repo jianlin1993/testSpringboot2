@@ -21,6 +21,8 @@
          <surefireArgLine>
             -javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/${jacoco.version}/org.jacoco.agent-${jacoco.version}-runtime.jar=destfile=${project.build.directory}/jacoco.exec
          </surefireArgLine>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <quartz.version>2.3.0</quartz.version>
    </properties>
 
    <dependencies>
@@ -250,6 +252,24 @@
          <artifactId>asm</artifactId>
          <version>3.1</version>
       </dependency>-->
+
+      <dependency>
+         <groupId>dom4j</groupId>
+         <artifactId>dom4j</artifactId>
+         <version>1.6.1</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.quartz-scheduler</groupId>
+         <artifactId>quartz</artifactId>
+         <version>${quartz.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.quartz-scheduler</groupId>
+         <artifactId>quartz-jobs</artifactId>
+         <version>${quartz.version}</version>
+      </dependency>
+
    </dependencies>
 
 
