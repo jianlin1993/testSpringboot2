@@ -1,3 +1,4 @@
+/*
 package com.wxy.wjl.testspringboot2.Controller;
 
 
@@ -50,3 +51,4 @@ public class CacheController {
         return "succcess";
     }
 }
+*/

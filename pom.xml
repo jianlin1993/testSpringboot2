@@ -37,10 +37,10 @@
 <!--         <scope>test</scope>  注释掉  不然只能在test文件夹下用-->
       </dependency>
 
-      <dependency>
+<!--      <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-cache</artifactId>
-      </dependency>
+      </dependency>-->
 <!--      <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-actuator</artifactId>
@@ -219,7 +219,7 @@
       </dependency>
 
       <!-- spring缓存-->
-      <dependency>
+<!--      <dependency>
          <groupId>com.google.guava</groupId>
          <artifactId>guava</artifactId>
          <version>18.0</version>
@@ -228,7 +228,7 @@
          <groupId>org.springframework</groupId>
          <artifactId>spring-context-support</artifactId>
          <version>4.3.17.RELEASE</version>
-      </dependency>
+      </dependency>-->
       <!--jwt依赖 -->
       <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
       <dependency>

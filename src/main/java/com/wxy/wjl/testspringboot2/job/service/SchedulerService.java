@@ -1,5 +1,6 @@
 package com.wxy.wjl.testspringboot2.job.service;
 
+import com.alibaba.fastjson.JSON;
 import com.wxy.wjl.testspringboot2.job.dal.dao.OpsJobInfMapper;
 import com.wxy.wjl.testspringboot2.job.dal.dao.OpsJobJnlMapper;
 import com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobInfDO;
@@ -191,6 +192,7 @@ public class SchedulerService implements InitializingBean, DisposableBean, Runna
 					scheduler.start();
 				}
 				List<OpsJobInfDO> jobInfDOList = jobInfMapper.selectAll();
+				System.out.println(JSON.toJSONString(jobInfDOList));
 				String ids = "";
 				int i = 0;
 				for (OpsJobInfDO jobInfDO : jobInfDOList) {

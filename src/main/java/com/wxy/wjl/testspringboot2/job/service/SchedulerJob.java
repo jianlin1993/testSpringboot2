@@ -9,6 +9,7 @@ import com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobJnlDO;
 import com.wxy.wjl.testspringboot2.job.utils.MrSnowflakeKeyGenerator;
 import com.wxy.wjl.testspringboot2.job.utils.SystemService;
 import com.wxy.wjl.testspringboot2.job.utils.UrlUtil;
+import com.wxy.wjl.testspringboot2.utils.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -52,7 +53,7 @@ public class SchedulerJob implements Job {
 			jobs.put(jobInfDO.getName(), jobInfDO);
 			doExecute(jobExecutionContext);
 		} catch (Throwable t) {
-			log.error(t, t);
+			log.error(t.getMessage());
 		} finally {
 			jobs.remove(jobInfDO.getName());
 			//bizCtx.getDataBaseUtil().closeAll();
@@ -97,8 +98,9 @@ public class SchedulerJob implements Job {
 			Map map = UrlUtil.getParameter(jobInfDO.getUrl());
 			String url = processUrl( jobInfDO.getUrl(), env);
 			url = url.split("[?]")[0];
-
-			String data = YGHttpClient.get(url, map, jobInfDO.getTmOut().intValue());
+			JSONObject parm=new JSONObject(map);
+			//String data = YGHttpClient.get(url, map, jobInfDO.getTmOut().intValue());
+			String data = HttpUtils.doPostTimeOut(parm.toJSONString(), url, jobInfDO.getTmOut().intValue());
 			log.info("invoke url:" + url + ", response:" + data);
 			JSONObject jsonObject = JSONObject.parseObject(data);
 			JSONObject gdaObject = jsonObject.getJSONObject("gda");

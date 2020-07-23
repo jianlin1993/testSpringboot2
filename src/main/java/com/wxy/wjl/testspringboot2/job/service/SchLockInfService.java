@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 @Service
 public class SchLockInfService {
 
-	@Mapper
+	@Autowired
 	OpsLockInfMapper opsLockInfMapper;
 
 
@@ -47,6 +48,10 @@ public class SchLockInfService {
 					opsLockInfDO.setUpdOpr("SYS");
 					opsLockInfDO.setOwner(nodeId);
 					opsLockInfDO.setLockTime(String.valueOf(time));
+					opsLockInfDO.setTmSmp(getDatabaseTime());
+					opsLockInfDO.setNodId("nodId");
+					opsLockInfDO.setReqId("req");
+
 					//int ret = bizCtx.getDataBaseUtil().execUpdateBind(sql, name, "SYS", nodeId, String.valueOf(time));
 					int ret=opsLockInfMapper.insert(opsLockInfDO);
 					log.info("ret:" + ret);

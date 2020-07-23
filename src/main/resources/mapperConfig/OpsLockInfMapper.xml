@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="GBK"?>
-<!-- Created by xu_lw on 2020-02-21 16:03:17. -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wxy.wjl.testspringboot2.job.dal.dao.OpsLockInfMapper">
 
     <resultMap id="BillList" type="com.wxy.wjl.testspringboot2.job.dal.entity.OpsLockInfDO" >
@@ -25,12 +25,12 @@
     <update id="updateByPrimaryKey" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsLockInfDO">
         update  T_OPS_LOCKINF
         <trim prefix="set" suffixOverrides = ",">
-            <if test="isNotNull(updOpr)">upd_opr=#{updOpr},</if>
-            <if test="isNotNull(owner)">url=#{owner},</if>
-            <if test="isNotNull(lockTime)">lock_time=#{lockTime},</if>
-            <if test="isNotNull(tmSmp)">tm_smp=#{tmSmp},</if>
-            <if test="isNotNull(nodId)">nod_id=#{nodId},</if>
-            <if test="isNotNull(reqId)">req_id=#{reqId},</if>
+            <if test="updOpr!= null and '' != updOpr">upd_opr=#{updOpr},</if>
+            <if test="owner!= null and '' != owner">owner=#{owner},</if>
+            <if test="lockTime!= null and '' != lockTime">lock_time=#{lockTime},</if>
+            <if test="tmSmp!= null and '' != tmSmp">tm_smp=#{tmSmp},</if>
+            <if test="nodId!= null and '' != nodId">nod_id=#{nodId},</if>
+            <if test="reqId!= null and '' != reqId">req_id=#{reqId},</if>
         </trim>
         where name = #{name}
     </update>
@@ -38,7 +38,7 @@
 
     <insert id="insert" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobJnlDO">
         insert  into T_OPS_LOCKINF( name, upd_opr, owner, lock_time, tm_smp, nod_id, req_id)
-        values( #{name}, #{owner}, #{lockTime}, #{tmSmp}, #{nodId}, #{reqId})
+        values( #{name},#{updOpr}, #{owner}, #{lockTime}, #{tmSmp}, #{nodId}, #{reqId})
     </insert>
 
 
@@ -48,7 +48,7 @@
     </sql>
 
     <select id="selectSystemTime" resultType="java.util.HashMap">
-        select DATE_FORMAT(now(),'%Y%m%d%H%i%S') SYSTEM_TIME from dual
+        select DATE_FORMAT(now(),'%Y%m%d%H%i%S') system_time from dual
     </select>
 
 </mapper>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="GBK"?>
-<!-- Created by xu_lw on 2020-02-21 16:03:17. -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wxy.wjl.testspringboot2.job.dal.dao.OpsJobJnlMapper">
 
     <resultMap id="BillList" type="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobJnlDO" >
@@ -33,17 +33,17 @@
     <update id="updateByPrimaryKey" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobJnlDO">
         update  T_OPS_JOBJNL
         <trim prefix="set" suffixOverrides = ",">
-            <if test="isNotNull(id)">id=#{id},</if>
-            <if test="isNotNull(name)">name=#{name},</if>
-            <if test="isNotNull(grpNm)">grp_nm=#{grpNm},</if>
-            <if test="isNotNull(url)">url=#{url},</if>
-            <if test="isNotNull(cron)">cron=#{cron},</if>
-            <if test="isNotNull(tmOut)">tm_out=#{tmOut},</if>
-            <if test="isNotNull(remark)">remark=#{remark},</if>
-            <if test="isNotNull(begTm)">beg_tm=#{begTm},</if>
-            <if test="isNotNull(endTm)">end_tm=#{endTm},</if>
-            <if test="isNotNull(status)">status=#{status},</if>
-            <if test="isNotNull(resultMsg)">result_msg=#{resultMsg},</if>
+            <if test="id != null and '' != id">id=#{id},</if>
+            <if test="name != null and '' != name">name=#{name},</if>
+            <if test="grpNm!= null and '' != grpNm">grp_nm=#{grpNm},</if>
+            <if test="url!= null and '' != url">url=#{url},</if>
+            <if test="cron!= null and '' != cron">cron=#{cron},</if>
+            <if test="tmOut!= null and '' != tmOut">tm_out=#{tmOut},</if>
+            <if test="remark!= null and '' != remark">remark=#{remark},</if>
+            <if test="begTm!= null and '' != begTm">beg_tm=#{begTm},</if>
+            <if test="endTm!= null and '' != endTm">end_tm=#{endTm},</if>
+            <if test="status!= null and '' != status">status=#{status},</if>
+            <if test="resultMsg!= null and '' != resultMsg">result_msg=#{resultMsg},</if>
         </trim>
         where id = #{id}
     </update>
@@ -51,17 +51,17 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobJnlDO">
         update  T_OPS_JOBJNL
         <trim prefix="set" suffixOverrides = ",">
-            <if test="isNotNull(id)">id=#{id},</if>
-            <if test="isNotNull(name)">name=#{name},</if>
-            <if test="isNotNull(grpNm)">grp_nm=#{grpNm},</if>
-            <if test="isNotNull(url)">url=#{url},</if>
-            <if test="isNotNull(cron)">cron=#{cron},</if>
-            <if test="isNotNull(tmOut)">tm_out=#{tmOut},</if>
-            <if test="isNotNull(remark)">remark=#{remark},</if>
-            <if test="isNotNull(begTm)">beg_tm=#{begTm},</if>
-            <if test="isNotNull(endTm)">end_tm=#{endTm},</if>
-            <if test="isNotNull(status)">status=#{status},</if>
-            <if test="isNotNull(resultMsg)">result_msg=#{resultMsg},</if>
+            <if test="id!= null and '' !=id">id=#{id},</if>
+            <if test="name!= null and '' !=name">name=#{name},</if>
+            <if test="grpNm!= null and '' !=grpNm">grp_nm=#{grpNm},</if>
+            <if test="url!= null and '' !=url">url=#{url},</if>
+            <if test="cron!= null and '' !=cron">cron=#{cron},</if>
+            <if test="tmOut!= null and '' !=tmOut">tm_out=#{tmOut},</if>
+            <if test="remark!= null and '' !=remark">remark=#{remark},</if>
+            <if test="begTm!= null and '' !=begTm">beg_tm=#{begTm},</if>
+            <if test="endTm!= null and '' !=endTm">end_tm=#{endTm},</if>
+            <if test="status!= null and '' !=status">status=#{status},</if>
+            <if test="resultMsg!= null and '' !=resultMsg">result_msg=#{resultMsg},</if>
         </trim>
         where id = #{id}
     </update>
@@ -74,30 +74,30 @@
     <insert id="insertSelective" parameterType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobJnlDO">
         insert  into T_OPS_JOBJNL
         <trim prefix="(" suffix=')' suffixOverrides=",">
-            <if test="isNotNull(id)">id,</if>
-            <if test="isNotNull(name)">name,</if>
-            <if test="isNotNull(grpNm)">grp_nm,</if>
-            <if test="isNotNull(url)">url,</if>
-            <if test="isNotNull(cron)">cron,</if>
-            <if test="isNotNull(tmOut)">tm_out,</if>
-            <if test="isNotNull(remark)">remark,</if>
-            <if test="isNotNull(begTm)">beg_tm,</if>
-            <if test="isNotNull(endTm)">end_tm,</if>
-            <if test="isNotNull(status)">status,</if>
-            <if test="isNotNull(resultMsg)">result_msg,</if>
+            <if test="id!= null and '' != id">id,</if>
+            <if test="name!= null and '' != name">name,</if>
+            <if test="grpNm!= null and '' != grpNm">grp_nm,</if>
+            <if test="url!= null and '' != url">url,</if>
+            <if test="cron!= null and '' != cron">cron,</if>
+            <if test="tmOut!= null and '' != tmOut">tm_out,</if>
+            <if test="remark!= null and '' != remark">remark,</if>
+            <if test="begTm!= null and '' != begTm">beg_tm,</if>
+            <if test="endTm!= null and '' != endTm">end_tm,</if>
+            <if test="status!= null and '' != status">status,</if>
+            <if test="resultMsg!= null and '' != resultMsg">result_msg,</if>
         </trim>
         <trim prefix="values(" suffix=')' suffixOverrides=",">
-            <if test="isNotNull(id)">#{id},</if>
-            <if test="isNotNull(name)">#{name},</if>
-            <if test="isNotNull(grpNm)">#{grpNm},</if>
-            <if test="isNotNull(url)">#{url},</if>
-            <if test="isNotNull(cron)">#{cron},</if>
-            <if test="isNotNull(tmOut)">#{tmOut},</if>
-            <if test="isNotNull(remark)">#{remark},</if>
-            <if test="isNotNull(begTm)">#{begTm},</if>
-            <if test="isNotNull(endTm)">#{endTm},</if>
-            <if test="isNotNull(status)">#{status},</if>
-            <if test="isNotNull(resultMsg)">#{resultMsg},</if>
+            <if test="id!= null and '' != id">#{id},</if>
+            <if test="name!= null and '' != name">#{name},</if>
+            <if test="grpNm!= null and '' != grpNm">#{grpNm},</if>
+            <if test="url!= null and '' != url">#{url},</if>
+            <if test="cron!= null and '' != cron">#{cron},</if>
+            <if test="tmOut!= null and '' != tmOut">#{tmOut},</if>
+            <if test="remark!= null and '' != remark">#{remark},</if>
+            <if test="begTm!= null and '' != begTm">#{begTm},</if>
+            <if test="endTm!= null and '' != endTm">#{endTm},</if>
+            <if test="status!= null and '' != status">#{status},</if>
+            <if test="resultMsg!= null and '' != resultMsg">#{resultMsg},</if>
         </trim>
     </insert>
 
