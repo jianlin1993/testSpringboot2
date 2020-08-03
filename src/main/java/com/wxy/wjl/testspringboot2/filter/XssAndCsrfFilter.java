@@ -78,7 +78,7 @@ public class XssAndCsrfFilter implements Filter {
         String requestPra = requestWrapper.getBody();
 
         for(String xssInvalidChar:xssInvalidCharacterArray){
-            if(requestPra.contains(xssInvalidChar)){
+            if(StringUtils.isNotBlank(xssInvalidChar) && requestPra.contains(xssInvalidChar)){
                 log.info("Suspected XSS attack! The request parameter contains illegal characters! parameter =  "+requestPra+" ,illegal character ="+xssInvalidChar);
                 return false;
             }

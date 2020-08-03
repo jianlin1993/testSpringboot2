@@ -14,13 +14,13 @@ import java.util.List;
 
 @Controller
 @EnableAutoConfiguration
-@RequestMapping("hbill")
+@RequestMapping("/*")
 public class BillListController {
 
     @Autowired
     private BillMapper billMapper;
 
-    @RequestMapping("/billlist1")
+    @RequestMapping
     public String getAll(Model model){
         List<Bill> list=new ArrayList<Bill>();
         list= billMapper.getAll();

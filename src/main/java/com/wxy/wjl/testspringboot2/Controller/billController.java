@@ -13,7 +13,7 @@ import java.util.List;
 
 //@RestController
 @Service
-@RequestMapping("t")
+@RequestMapping("/")
 public class billController {
     @Autowired
     private BillMapper billMapper;
@@ -67,7 +67,7 @@ public class billController {
     }
 
     @ResponseBody
-    @RequestMapping("billinfo2/{jrnNo}")
+    @RequestMapping("/*/*.dom")
     public String getNo(){
         String no= StrUtil.getJrnNo();
         return no;
