@@ -13,7 +13,7 @@
         <result column="delete_flag" property="deleteFlag" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="selectByName" resultType="com.wxy.wjl.testspringboot2.job.dal.entity.OpsJobInfDO">
+    <select id="selectByName" resultMap="BillList">
         select <include refid="base_column_list"/>
         from T_OPS_JOBINF where name = #{name}
     </select>

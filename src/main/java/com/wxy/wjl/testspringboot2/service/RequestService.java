@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.wxy.wjl.testspringboot2.utils.HttpUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
@@ -283,8 +284,8 @@ public class RequestService {
 	 */
 	@Test
 	public void test16() throws Exception{
-		String pwd = "cVQyf4hMmJTULeV5BRkMlngVjVIc56fUkz0L/p+lTw4P2kP8Mp7aUM9U/faqZEeMFJinkUQ6TYB9xL/3qFl0HQ==";
-		String pub = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJ/R9TxeFGQuKNsGPBvhUCd6rXP2IASmLqzSBCzu0OWmFK1b8VqQQcg16T/15pJQB0x9wom6jrrwR3/hf6VAzFMCAwEAAQ==";
+		String pwd = "kd0dSZVmBqQ+AwnypsTzLIMapzrjpC5NEhDC4t6OG1OicwQ43GbpANBYeHNC/fabOpHf/OS6mVHX7rEM0at/aw==";
+		String pub = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJX/Z14549D3dZa+CHTJR1cUJVGXUZOailgAL/xiUFZmgtsCvN824fEAv25/3CkzB35AchB5J4D4q+nIzbeHr98CAwEAAQ==";
 		try {
 			String depwd = ConfigTools.decrypt(pub, pwd);
 			System.out.println(depwd);
@@ -509,22 +510,21 @@ public class RequestService {
 	}
 
 	/**
-	 * 计算
+	 * 文件路径检测  安全问题修复
 	 */
 	@Test
 	public void test31() throws Exception{
-		int a=742151171;
-		int b=	34000;
-		System.out.println("T_ACT_ACJNDT_AUD".substring("T_ACT_ACJNDT_AUD".length()-4));
-		String [] strArr="22222".split("!");
-		System.out.println(strArr.length);
-//		Pattern NUM_PATTERN = Pattern.compile("^[0-9]*$");
-//		System.out.println(NUM_PATTERN.matcher("254207001763").matches());
-//		Father fa1=new Father();
-//		fa1.setToolId("测试");
-//		String s=JSON.toJSONString(fa1);
-//		System.out.println(s);
+		String fileName="/bbb/aaa/";
+		fileName = FilenameUtils.normalize(fileName);
+//获取文件名称
+		//fileName = FilenameUtils.getName(fileName);
+		System.out.println(fileName);
 	}
 
-
+	@Test
+	public void test32() throws Exception{
+		 String[] verifyReferer = null;
+		verifyReferer="".split(",");
+		System.out.println(verifyReferer == null);
+	}
 }

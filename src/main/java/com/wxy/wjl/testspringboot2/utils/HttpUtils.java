@@ -136,6 +136,14 @@ public class HttpUtils {
         return httpRsp;
     }
 
+    /**
+     * 带有超时时间的http请求
+     * @param params 请求参数
+     * @param url   请求url
+     * @param timeOut   超时时间 单位：秒
+     * @return
+     * @throws Exception
+     */
     public static String doPostTimeOut(String params,String url,int timeOut) throws Exception{
         String httpRsp;
         CloseableHttpClient httpclient= HttpClients.createDefault();
@@ -147,9 +155,9 @@ public class HttpUtils {
         HttpEntity entity=null;
 
         RequestConfig requestConfig = RequestConfig.custom()
-                .setConnectTimeout(timeOut)
-                .setSocketTimeout(timeOut)
-                .setConnectionRequestTimeout(timeOut)
+                .setConnectTimeout(timeOut*1000)
+                .setSocketTimeout(timeOut*1000)
+                .setConnectionRequestTimeout(timeOut*1000)
                 .build();
         httpPost.setConfig(requestConfig);
         try{

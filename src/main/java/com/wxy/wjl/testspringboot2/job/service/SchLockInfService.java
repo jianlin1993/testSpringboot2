@@ -49,7 +49,7 @@ public class SchLockInfService {
 					opsLockInfDO.setOwner(nodeId);
 					opsLockInfDO.setLockTime(String.valueOf(time));
 					opsLockInfDO.setTmSmp(getDatabaseTime());
-					opsLockInfDO.setNodId("nodId");
+					opsLockInfDO.setNodId(nodeId);
 					opsLockInfDO.setReqId("req");
 
 					//int ret = bizCtx.getDataBaseUtil().execUpdateBind(sql, name, "SYS", nodeId, String.valueOf(time));

@@ -18,7 +18,7 @@ public class Testspringboot2Application {
     public static void main(String[] args) {
 
         ApplicationContext applicationContext= SpringApplication.run(Testspringboot2Application.class, args);
-        applicationContext.getBean(SocketServer.class).start(8088);
+        applicationContext.getBean(SocketServer.class).start(8089);
     }
 
 }

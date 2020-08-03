@@ -1,5 +1,6 @@
 package com.wxy.wjl.testspringboot2.job.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import com.wxy.wjl.testspringboot2.job.dal.dao.OpsJobInfMapper;
@@ -72,6 +73,7 @@ public class SchedulerJob implements Job {
 		//
 
 		jobInfDO = jobInfMapper.selectByName(jobInfDO.getName());
+		log.info("jobInfDO = "+JSON.toJSONString(jobInfDO));
 		if( jobInfDO == null ) {
 			log.info("have a job not found");
 			return;
@@ -91,6 +93,7 @@ public class SchedulerJob implements Job {
 		jobJnlDO.setBegTm(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 		jobJnlDO.setStatus("I");
 //		System.out.println(JSON.toJSONString(jobJnlDO));
+		log.info("jobJnlDO = " +JSON.toJSONString(jobJnlDO));
 		jobJnlMapper.insertSelective(jobJnlDO);
 
 		try {
@@ -100,13 +103,9 @@ public class SchedulerJob implements Job {
 			url = url.split("[?]")[0];
 			JSONObject parm=new JSONObject(map);
 			//String data = YGHttpClient.get(url, map, jobInfDO.getTmOut().intValue());
+			log.info("parm = "+JSON.toJSONString(parm));
 			String data = HttpUtils.doPostTimeOut(parm.toJSONString(), url, jobInfDO.getTmOut().intValue());
 			log.info("invoke url:" + url + ", response:" + data);
-			JSONObject jsonObject = JSONObject.parseObject(data);
-			JSONObject gdaObject = jsonObject.getJSONObject("gda");
-			if( gdaObject != null ) {
-				data = gdaObject.toJSONString();
-			}
 			jobJnlDO.setResultMsg(data);
 			jobJnlDO.setStatus("S");
 		} catch (Exception e) {

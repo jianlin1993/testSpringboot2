@@ -20,7 +20,7 @@ public class OpsUtil {
 		String nodeId = System.getProperty("ecp.app.nodeId");
 		if (nodeId == null) {
 			String hostAddress = MrNetUtil.getLocalhost().getHostAddress();
-			nodeId = "sch-" + hostAddress;
+			nodeId = "sch-" + hostAddress+"2";
 		}
 		return nodeId;
 	}
