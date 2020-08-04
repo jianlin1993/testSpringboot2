@@ -1,5 +1,6 @@
 package com.wxy.wjl.testspringboot2.job.service;
 
+import com.alibaba.fastjson.JSON;
 import com.wxy.wjl.testspringboot2.job.dal.dao.OpsLockInfMapper;
 import com.wxy.wjl.testspringboot2.job.dal.entity.OpsLockInfDO;
 import com.wxy.wjl.testspringboot2.job.utils.OpsUtil;
@@ -38,8 +39,11 @@ public class SchLockInfService {
 		while (true) {
 			OpsLockInfDO opsLockInfDO=new OpsLockInfDO();
 			opsLockInfDO.setName(name);
+			System.out.println("开始获取锁");
 			rec=opsLockInfMapper.selectByPrimaryKeyForUpdate(opsLockInfDO);
+			System.out.println(JSON.toJSONString(rec));
 			if (rec == null || rec.isEmpty()) {
+				System.out.println("rec");
 				//sql = "insert into t_ops_lockinf(name,upd_opr,owner,lock_time) values(?, ?, ?, ?)";
 				try {
 					// modified by Leo @2020年3月21日   System.currentTimeMillis() -> getDatabaseGMTTime(bizCtx)
