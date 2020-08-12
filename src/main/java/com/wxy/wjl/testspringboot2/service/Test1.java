@@ -333,4 +333,12 @@ public class Test1 {
         long time = DateUtils.parseDate("20200714145024", "yyyyMMddHHmmss").getTime();
         System.out.println(time);
     }
+
+    @Test
+    public void test16() throws Exception{
+        Class longClass=Long.class;
+        System.out.println(longClass.getName().equals("java.lang.Long") );
+        System.out.println(longClass.isAssignableFrom(java.lang.Long.class));
+        //System.out.println(longClass instanceof java.lang.Long.class);
+    }
 }

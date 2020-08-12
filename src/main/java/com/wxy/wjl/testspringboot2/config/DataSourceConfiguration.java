@@ -1,6 +1,5 @@
 package com.wxy.wjl.testspringboot2.config;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +19,7 @@ public class DataSourceConfiguration {
     private String jdbcPassword;
 
 
-    @Bean
+/*    @Bean
     public DataSource createDataSource() throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
 
@@ -32,6 +31,6 @@ public class DataSourceConfiguration {
         dataSource.setAutoCommitOnClose(false);
 
         return dataSource;
-    }
+    }*/
 
 }
