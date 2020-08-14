@@ -1,4 +1,3 @@
-/*
 package com.wxy.wjl.testspringboot2.Controller;
 
 
@@ -6,7 +5,6 @@ import com.wxy.wjl.testspringboot2.domain.Bill;
 import com.wxy.wjl.testspringboot2.mapper.BillMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.guava.GuavaCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,4 +49,3 @@ public class CacheController {
         return "succcess";
     }
 }
-*/

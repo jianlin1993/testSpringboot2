@@ -25,7 +25,8 @@ public class DataSourceConfiguration {
     private String jdbcPassword;
 
 
-/*    @Bean
+/*  原c3p0连接池
+    @Bean
     public DataSource createDataSource() throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
 
