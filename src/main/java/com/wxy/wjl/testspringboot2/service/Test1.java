@@ -10,6 +10,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -340,5 +341,8 @@ public class Test1 {
         System.out.println(longClass.getName().equals("java.lang.Long") );
         System.out.println(longClass.isAssignableFrom(java.lang.Long.class));
         //System.out.println(longClass instanceof java.lang.Long.class);
+
+        String filePathSftp="/nfs/data/dfs/rpt/dailyFile/20200814";
+        System.out.println(filePathSftp.substring(1) + File.separator);
     }
 }
