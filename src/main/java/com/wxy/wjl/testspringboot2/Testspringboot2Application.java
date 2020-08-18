@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableCaching
 @EnableDiscoveryClient
 @EnableEurekaClient
-@EnableFeignClients(basePackages = {"com.wxy.wjl.providerapi.service"})
+@EnableFeignClients(basePackages = {"com.wxy.wjl.providerapi.service","com.wxy.wjl.testspringboot2.feign"})
 public class Testspringboot2Application {
 
     public static void main(String[] args) {
