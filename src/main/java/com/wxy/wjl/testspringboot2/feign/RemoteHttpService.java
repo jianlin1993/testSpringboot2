@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/provider")
 public interface RemoteHttpService {
 
-    @RequestMapping("testRemote")
+    // 因为api里也引用了此mapping  此处改个名字
+    @RequestMapping("testRemote2")
     String remoteService(@RequestBody ProviderReqBO providerReqBO);
 
 }
