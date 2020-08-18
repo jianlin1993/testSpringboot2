@@ -32,8 +32,6 @@ public class Test1 {
         list.add("b");
         list.add("a");
 
-
-
         Map<String,String> map=new HashMap<>();
         map.put("f","3");
         map.put("a","1");
@@ -61,23 +59,6 @@ public class Test1 {
 
     }
 
-    @Test
-    public void test2(){
-        Set<Son> set = new HashSet<Son>();
-        Son p1 = new Son("唐僧");
-        Son p2 = new Son("孙悟空");
-        Son p3 = new Son("猪八戒");
-        set.add(p1);
-        set.add(p2);
-        set.add(p3);
-        System.out.println("总共有:"+set.size()+" 个元素!"); //结果：总共有:3 个元素!
-        p3.setName("aaa"); //修改p3的年龄,此时p3元素对应的hashcode值发生改变
-        set.remove(p3); //此时remove不掉，造成内存泄漏
-        set.add(p3); //重新添加，居然添加成功
-        System.out.println("总共有:"+set.size()+" 个元素!"); //结果：总共有:4 个元素!
-    }
-
-
     /**
      * 测试json解析
      */
@@ -104,14 +85,13 @@ public class Test1 {
         System.out.println(loader.getParent().getParent());
     }
 
-
     @Test
     public void test5(){
         String s1 = "abc";
         String s2 = "a";
         String s3 = "bc";
         String s4 = s2 + s3;
-        System.out.println(s1 == s4);
+        System.out.println(s1 == s4); //false
 
     }
     @Test
@@ -215,118 +195,6 @@ public class Test1 {
         System.out.println(new DecimalFormat("0.00").format(amount));
         LocalDate localDate=LocalDate.now();
         System.out.println(localDate);
-    }
-
-
-    /**
-     *有N个鸡蛋，要依次投放到如下BOX中，
-     * 【1】，【2】，【4】，【8】，【16】。。。。【？】
-     * 请求出最后一个box有多少个鸡蛋？
-     * @throws Exception
-     */
-    @Test
-    public void test11() throws Exception{
-
-        int x=sub(20,1);
-        System.out.println(x);
-    }
-
-    public int sub(int n,int box){
-        if(n < box){
-            return n;
-        }else if(n == box){
-            return  0;
-        }else{
-            n=n-box;
-            box=box*2;
-            return sub(n,box);
-        }
-    }
-
-    /**
-     * split
-     * @throws Exception
-     */
-    @Test
-    public void test12() throws Exception{
-
-        String[] val="150|150|0".split("\\|");
-        String lonAmt=val[0];
-        String unpaidAmt=val[1];
-        String lstCredAmt=val[2];
-        System.out.println(unpaidAmt);
-        System.out.println(new DecimalFormat("#,##0.00").format(new BigDecimal(unpaidAmt)));
-    }
-
-
-    @Test
-    public void test13() throws Exception{
-        JSONObject root=getRoot();
-        String name="test";
-        String rspParams="<format><response><xml name=\"RESPONSE_CODE\" bname=\"response_code\" type=\"string\"/><xml name=\"RESPONSE_MESSAGE\" bname=\"response_message\" type=\"string\"/><xml name=\"timestamp\" bname=\"timestamp\" type=\"string\"/><xml name=\"outstandingBal\" bname=\"outstanding_bal\" type=\"string\"/><xml name=\"dueDate\" bname=\"due_date\" type=\"string\"/><xml name=\"principal\" bname=\"principal\" type=\"string\"/><xml name=\"totalInterest\" bname=\"total_interest\" type=\"string\"/><xml name=\"totalFee\" bname=\"total_fee\" type=\"string\"/><xml name=\"totalTax\" bname=\"total_tax\" type=\"string\"/></response></format>";
-        System.out.println(getResponse(root,name,rspParams));
-        System.out.println(root.toJSONString());
-
-    }
-    private JSONObject getRoot() {
-        return JSONObject.parseObject("{\"swagger\":\"2.0\",\"info\":{\"description\":\"NCBA Gateway-Openapi Standard APIs\",\"version\":\"1.0\",\"title\":\"NCBA Gateway-Openapi Standard APIs\",\"termsOfService\":\"http://localhost:8181/\",\"contact\":{\"name\":\"NCBA\"}},\"host\":\"localhost:8181\",\"basePath\":\"/\",\"tags\":[],\"paths\":{},\"entity\":{}}");
-    }
-    private String getResponse(JSONObject root,String name,String rspParams) throws Exception{
-        JSONObject entity = (JSONObject) root.get("entity");
-        JSONObject entityObject=new JSONObject();
-        entityObject.put("type","Object");
-        SAXReader reader = new SAXReader();
-        Document doc = reader.read(new StringReader(rspParams));
-        Element rspElement = doc.getRootElement();
-        rspElement = rspElement.element("response");
-
-        JSONObject properties=new JSONObject(new LinkedHashMap());
-        properties=rspXml2Json(rspElement,properties);
-        entityObject.put("properties",properties);
-        // 组装数据
-        JSONObject baseRsp=new JSONObject();
-        JSONObject rsp200=JSONObject.parseObject("{\"description\":\"Ok\"}");
-        JSONObject schema=new JSONObject();
-        schema.put("originalRef",name+".object");
-        schema.put("$ref","#/entity/"+name+".object");
-        rsp200.put("schema",schema);
-        JSONObject rsp201=JSONObject.parseObject("{\"description\":\"Created\"}");
-        JSONObject rsp401=JSONObject.parseObject("{\"description\":\"Unauthorized\"}");
-        JSONObject rsp403=JSONObject.parseObject("{\"description\":\"Forbidden\"}");
-        JSONObject rsp404=JSONObject.parseObject("{\"description\":\"Not Found\"}");
-        baseRsp.put("200",rsp200);
-        baseRsp.put("201",rsp201);
-        baseRsp.put("401",rsp401);
-        baseRsp.put("403",rsp403);
-        baseRsp.put("404",rsp404);
-        entity.put(name+".object",entityObject);
-        root.put("entity",entity);
-        return baseRsp.toJSONString();
-    }
-    public static JSONObject rspXml2Json(Element element,JSONObject properties) throws Exception{
-        Iterator iter = element.elementIterator("xml");
-        while( iter.hasNext() ) {
-            Element formatElement = (Element)iter.next();
-            String name = formatElement.attributeValue("name");
-            // 目前只支持双层节点返回
-/*
-            Iterator childIter = formatElement.elementIterator("xml");
-            while(childIter.hasNext()){
-                JSONObject child=new JSONObject();
-
-            }
-
-*/
-
-
-            String type = formatElement.attributeValue("type");
-            JSONObject param = new JSONObject();
-            param.put("description",name);
-            param.put("type",type);
-            properties.put(name,param);
-        }
-        return properties;
-
     }
 
     @Test
