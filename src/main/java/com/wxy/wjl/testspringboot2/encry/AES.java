@@ -1,15 +1,14 @@
 package com.wxy.wjl.testspringboot2.encry;
 
 
-import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.nio.charset.Charset;
+import java.security.*;
+import java.util.Base64;
 
 /**
  * 高级加密算法
@@ -18,11 +17,22 @@ import java.security.SecureRandom;
  */
 public class AES {
 
+    // jdk8之后首选自带的base64编码
+   static final Base64.Decoder decoder = Base64.getDecoder();
+    static final Base64.Encoder encoder = Base64.getEncoder();
+
 
     //String转byte数组  编码
-    public static final String CHARSET = "UTF-8";
+    private static final String CHARSET = "UTF-8";
 
+    // 默认密钥 32bytes 256bits
+    private static final String defaultKey = "1234567890ABCDEF1234567890ABCDEf";
 
+    //偏移量字符串必须是16字节 当模式是CBC的时候必须设置偏移量
+    private static final String iv = "0123456789ABCDEF";
+    private static final String Algorithm = "AES";
+    //算法/模式/补码方式
+    private static final String AlgorithmProvider = "AES/CBC/PKCS5Padding";
     /**
      *
      *  生成key，作为加密和解密密钥且只有密钥相同解密加密才会成功
@@ -36,8 +46,8 @@ public class AES {
             KeyGenerator keyGenerator;
             //构造密钥生成器，指定为AES算法,不区分大小写
             keyGenerator = KeyGenerator.getInstance("AES");
-            //生成一个128位的随机源,根据传入的字节数组
-            keyGenerator.init(128,new SecureRandom(key.getBytes(CHARSET)));
+            //生成一个128位的随机源,根据传入的字节数组  此为AES128加密，如果生成256位，则安全性更高
+            keyGenerator.init(256,new SecureRandom(key.getBytes(CHARSET)));
             //产生原始对称密钥
             SecretKey secretKey = keyGenerator.generateKey();
             //获得原始对称密钥的字节数组
@@ -84,7 +94,7 @@ public class AES {
      * @param result 加密后的密文byte数组
      * @param key 解密用密钥
      */
-    public static String decrypt(byte[] result, Key key) {
+    public static byte[] decrypt(byte[] result, Key key) {
 
         Cipher cipher;
         try {
@@ -106,15 +116,46 @@ public class AES {
         } catch (BadPaddingException e) {
             e.printStackTrace();
         }
-        return new String(result);
+        return result;
         //System.out.println("jdk aes desrypt:" + new String(result));
     }
 
 
-    public static void main(String[] args) {
+    // 获取偏移量  CBC模式使用
+    public static IvParameterSpec getIv() throws UnsupportedEncodingException {
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes("utf-8"));
+        return ivParameterSpec;
+    }
+
+    // CBC模式加密
+    public static byte[] encrypt(String src, byte[] key) throws NoSuchAlgorithmException, NoSuchPaddingException,
+            InvalidKeyException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
+        SecretKey secretKey = new SecretKeySpec(key, Algorithm);
+        IvParameterSpec ivParameterSpec = getIv();
+        Cipher cipher = Cipher.getInstance(AlgorithmProvider);
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivParameterSpec);
+        byte[] cipherBytes = cipher.doFinal(src.getBytes(Charset.forName("utf-8")));
+        return cipherBytes;
+    }
+    // CBC模式解密
+    public static byte[] decrypt(String src, byte[] key) throws Exception {
+        SecretKey secretKey = new SecretKeySpec(key, Algorithm);
+
+        IvParameterSpec ivParameterSpec = getIv();
+        Cipher cipher = Cipher.getInstance(AlgorithmProvider);
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec);
+        byte[] hexBytes = decoder.decode(src);
+        byte[] plainBytes = cipher.doFinal(hexBytes);
+        return plainBytes;
+    }
+
+
+    public static void main(String[] args) throws Exception {
         String key="123";
-        System.out.println("加密后："+new String(Base64.encodeBase64(jdkAES("测试AES加密",createKey(key)))));
-        System.out.println("解密后："+decrypt(jdkAES("测试AES加密",createKey(key)),createKey(key)));
+        System.out.println("加密后："+new String(encoder.encode(jdkAES("testAES",createKey(key)))));
+        System.out.println("解密后："+new String(decrypt(jdkAES("testAES",createKey(key)),createKey(key))));
+        System.out.println("CBC模式加密："+ new String(encoder.encode(encrypt("aaaaaaaaaaa",defaultKey.getBytes("utf-8")))));
+        System.out.println("CBC模式解密："+ new String(decrypt("+SgJoPxO5HugIVnaw9D5qg==",defaultKey.getBytes("utf-8"))));
     }
 
 }
