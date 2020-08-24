@@ -2,6 +2,8 @@ package com.wxy.wjl.testspringboot2.encry;
 
 
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -21,15 +23,20 @@ public class AES {
    static final Base64.Decoder decoder = Base64.getDecoder();
     static final Base64.Encoder encoder = Base64.getEncoder();
 
+    // 密文编码方式
+    private static final String BASE64_MODE = "base64";
+    private static final String HEX_MODE = "hex";
+
+
 
     //String转byte数组  编码
     private static final String CHARSET = "UTF-8";
 
     // 默认密钥 32bytes 256bits
-    private static final String defaultKey = "1234567890ABCDEF1234567890ABCDEf";
+    private static final String defaultKey = "c0e9fcff59ecc3b8b92939a1a2724a44";
 
     //偏移量字符串必须是16字节 当模式是CBC的时候必须设置偏移量
-    private static final String iv = "0123456789ABCDEF";
+    private static final String iv = "1111111111111111";
     private static final String Algorithm = "AES";
     //算法/模式/补码方式
     private static final String AlgorithmProvider = "AES/CBC/PKCS5Padding";
@@ -120,15 +127,42 @@ public class AES {
         //System.out.println("jdk aes desrypt:" + new String(result));
     }
 
+    /**---------------------------------------------CBC模式-----------------------------------------------*/
 
-    // 获取偏移量  CBC模式使用
+    /**
+     * 获取偏移量  CBC模式使用,偏移量长度必须是16字节
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     public static IvParameterSpec getIv() throws UnsupportedEncodingException {
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes("utf-8"));
         return ivParameterSpec;
     }
 
-    // CBC模式加密
-    public static byte[] encrypt(String src, byte[] key) throws NoSuchAlgorithmException, NoSuchPaddingException,
+    /**
+     * 获取默认key
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    private static byte[] getDefaultKey() throws UnsupportedEncodingException{
+        return defaultKey.getBytes("UTF-8");
+    }
+
+
+    /**
+     * CBC模式加密  此处是返回字节数组
+     * @param src
+     * @param key
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchPaddingException
+     * @throws InvalidKeyException
+     * @throws IllegalBlockSizeException
+     * @throws BadPaddingException
+     * @throws UnsupportedEncodingException
+     * @throws InvalidAlgorithmParameterException
+     */
+    public static byte[] encryptCBC(String src, byte[] key) throws NoSuchAlgorithmException, NoSuchPaddingException,
             InvalidKeyException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
         SecretKey secretKey = new SecretKeySpec(key, Algorithm);
         IvParameterSpec ivParameterSpec = getIv();
@@ -137,25 +171,81 @@ public class AES {
         byte[] cipherBytes = cipher.doFinal(src.getBytes(Charset.forName("utf-8")));
         return cipherBytes;
     }
-    // CBC模式解密
-    public static byte[] decrypt(String src, byte[] key) throws Exception {
+
+    /**
+     * CBC解密
+     * @param src  密文
+     * @param key   密钥
+     * @param mode  密文编码模式  base64/hex
+     * @return
+     * @throws Exception
+     */
+    public static byte[] decryptCBC(String src, byte[] key ,String mode) throws Exception {
         SecretKey secretKey = new SecretKeySpec(key, Algorithm);
 
         IvParameterSpec ivParameterSpec = getIv();
         Cipher cipher = Cipher.getInstance(AlgorithmProvider);
         cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec);
-        byte[] hexBytes = decoder.decode(src);
+        byte[] hexBytes = null;
+        if(StringUtils.equals(mode,BASE64_MODE)){
+            hexBytes = decoder.decode(src);
+        }else if(StringUtils.equals(mode,HEX_MODE)){
+            hexBytes = parseHexStr2Byte(src);
+        }else{
+            throw new Exception("不支持此密文MODE解密");
+        }
         byte[] plainBytes = cipher.doFinal(hexBytes);
         return plainBytes;
+    }
+
+    /**
+     * 字节数组转16进制
+     * @param buf
+     * @return
+     */
+    public static String parseByte2HexStr(byte[] buf) {
+        StringBuffer sb = new StringBuffer();
+
+        for(int i = 0; i < buf.length; ++i) {
+            String hex = Integer.toHexString(buf[i] & 255);
+            if (hex.length() == 1) {
+                hex = '0' + hex;
+            }
+            sb.append(hex.toUpperCase());
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 16进制转字节数组
+     * @param hexStr
+     * @return
+     */
+    public static byte[] parseHexStr2Byte(String hexStr) {
+        if (hexStr.length() < 1) {
+            return null;
+        } else {
+            byte[] result = new byte[hexStr.length() / 2];
+
+            for(int i = 0; i < hexStr.length() / 2; ++i) {
+                int high = Integer.parseInt(hexStr.substring(i * 2, i * 2 + 1), 16);
+                int low = Integer.parseInt(hexStr.substring(i * 2 + 1, i * 2 + 2), 16);
+                result[i] = (byte)(high * 16 + low);
+            }
+
+            return result;
+        }
     }
 
 
     public static void main(String[] args) throws Exception {
         String key="123";
-        System.out.println("加密后："+new String(encoder.encode(jdkAES("testAES",createKey(key)))));
-        System.out.println("解密后："+new String(decrypt(jdkAES("testAES",createKey(key)),createKey(key))));
-        System.out.println("CBC模式加密："+ new String(encoder.encode(encrypt("aaaaaaaaaaa",defaultKey.getBytes("utf-8")))));
-        System.out.println("CBC模式解密："+ new String(decrypt("+SgJoPxO5HugIVnaw9D5qg==",defaultKey.getBytes("utf-8"))));
+        System.out.println("明文长度"+"测试一下产固定测试一下产固定测试一下产固定".getBytes("UTF-8").length);
+        System.out.println("ECB加密后："+encoder.encodeToString(jdkAES("测试一下产固定测试一下产固定测试一下产固定",createKey(key))));
+        System.out.println("ECB解密后："+new String(decrypt(jdkAES("testAES",createKey(key)),createKey(key))));
+        System.out.println("CBC模式加密："+ encoder.encodeToString(encryptCBC("测试一下产固定测试一下产固定测试一下产固定",getDefaultKey())));
+        System.out.println("CBC模式解密："+ new String(decryptCBC("UTxlHu5cS4egnwKL5GFKlm5QayH0F1euXL1kAqXHec4eLvai7XL8akpGpd1LAErrTg4KvXqCYVrmuqlDlTpt5Q==",getDefaultKey(),BASE64_MODE)));
+        System.out.println("CBC模式加密  16进制显示："+ parseByte2HexStr(encryptCBC("测试一下产固定测试一下产固定测试一下产固定",getDefaultKey())));
     }
 
 }
