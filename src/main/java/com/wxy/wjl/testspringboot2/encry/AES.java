@@ -232,7 +232,6 @@ public class AES {
                 int low = Integer.parseInt(hexStr.substring(i * 2 + 1, i * 2 + 2), 16);
                 result[i] = (byte)(high * 16 + low);
             }
-
             return result;
         }
     }

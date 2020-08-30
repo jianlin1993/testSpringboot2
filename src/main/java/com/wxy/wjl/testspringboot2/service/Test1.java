@@ -213,4 +213,25 @@ public class Test1 {
         String filePathSftp="/nfs/data/dfs/rpt/dailyFile/20200814";
         System.out.println(filePathSftp.substring(1) + File.separator);
     }
+
+    /**
+     * 三元运算符
+     * @throws Exception
+     */
+    @Test
+    public void test17() throws Exception{
+        Son son=new Son();
+        son.setFirstName("aaaa");
+        son.setAge(  son.getFirstName().equals("aaaa")? 10:0 );
+        System.out.println(JSON.toJSONString(son));
+
+    }
+
+
+    @Test
+    public void test18() throws Exception{
+        String msgCd="MBU00000";
+        System.out.println(msgCd.substring(msgCd.length()-5));
+    }
+
 }
