@@ -21,9 +21,14 @@
 <script type="text/javascript">
     $(function () {
         var oper_pwd='1234qwer';
-        var oper_no='keT00001';
+        var oper_no='keT10513';
         $("#password").html(sha256(oper_pwd + oper_no));
     });
+
+    function trim(s){
+        return s.replace(/(^\s*)|(\s*$)/g, "");
+    }
+
 
 </script>
 </body>
