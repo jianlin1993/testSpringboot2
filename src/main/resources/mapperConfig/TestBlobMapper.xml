@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wxy.wjl.testspringboot2.mapper.TestBlobMapper">
+<mapper namespace="com.wxy.wjl.testspringboot2.database.mapper.TestBlobMapper">
     <resultMap id="BlobDO" type="com.wxy.wjl.testspringboot2.database.blob.TestBlobDO" >
         <result column="bytes" property="bytes" jdbcType="BLOB" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
         <result column="id" property="id" jdbcType="TINYINT"/>

@@ -1,6 +1,5 @@
 package com.wxy.wjl.testspringboot2.mapper;
 
-//import com.wxy.wjl.testspringboot2.cache.SpringCacheConfig;
 import com.wxy.wjl.testspringboot2.cache.SpringCacheConfig;
 import com.wxy.wjl.testspringboot2.domain.Bill;
 import org.apache.ibatis.annotations.Mapper;

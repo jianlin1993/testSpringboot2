@@ -1,8 +1,7 @@
 package com.wxy.wjl.testspringboot2;
 
-import com.googlecode.aviator.AviatorEvaluator;
 import com.wxy.wjl.testspringboot2.database.blob.TestBlobDO;
-import com.wxy.wjl.testspringboot2.mapper.TestBlobMapper;
+import com.wxy.wjl.testspringboot2.database.mapper.TestBlobMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
