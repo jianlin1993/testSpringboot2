@@ -52,7 +52,7 @@ public class PowerMockTest extends PowerMockTestCase {
     @Test
     public  void test02(){
         PowerMockito.when(StrUtil.getJrnNo()).thenReturn("0000000001");
-        String no=billController1.getNo();
+        String no=StrUtil.getJrnNo();
         logger.info(no);
     }
 

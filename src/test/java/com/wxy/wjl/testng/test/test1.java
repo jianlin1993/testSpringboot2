@@ -68,7 +68,6 @@ public class test1 extends TestNGBaseTest {
     public void test01(Map<String ,String> testData) throws Exception{
         String num=testData.get("TEST_CASE_ID")+"    ";
         System.out.println(num);
-        billControllerBean.sout();
         //构建对象
 //        Bill bill=buildJavaBeanModel("Bill",Bill.class,testData,this);
         //System.out.println("单对象输出："+bill.getRemark());

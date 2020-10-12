@@ -1,14 +1,13 @@
-package com.wxy.wjl.testspringboot2.Controller;
+package com.wxy.wjl.testspringboot2.cloud.feign;
 
 import com.wxy.wjl.providerapi.entiy.ProviderReqBO;
 import com.wxy.wjl.providerapi.service.ServiceProvider;
-import com.wxy.wjl.testspringboot2.feign.RemoteHttpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class couldController {
+public class FeignController {
 
     @Autowired
     ServiceProvider serviceProvider;
