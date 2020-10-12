@@ -1,7 +1,5 @@
 package com.wxy.wjl.testspringboot2.cusannotation;
 
-import com.wxy.wjl.testspringboot2.domain.cusannotation.Person;
-
 import java.lang.reflect.Field;
 
 public class IdInfoUtil {

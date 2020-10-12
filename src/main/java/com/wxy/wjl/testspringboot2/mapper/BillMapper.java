@@ -1,13 +1,12 @@
 package com.wxy.wjl.testspringboot2.mapper;
 
-//import com.wxy.wjl.testspringboot2.config.SpringCacheConfig;
-import com.wxy.wjl.testspringboot2.config.SpringCacheConfig;
+//import com.wxy.wjl.testspringboot2.cache.SpringCacheConfig;
+import com.wxy.wjl.testspringboot2.cache.SpringCacheConfig;
 import com.wxy.wjl.testspringboot2.domain.Bill;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cache.annotation.Cacheable;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Mapper

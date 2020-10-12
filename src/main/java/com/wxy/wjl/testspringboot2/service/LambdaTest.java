@@ -3,6 +3,9 @@ package com.wxy.wjl.testspringboot2.service;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * lambda表达式测试
+ */
 public class LambdaTest {
 	public static void main(String[] args) {
 		String[] players = {"zhansgan", "lisi", "wangwu", "zhaoliu",  "wangmazi"};

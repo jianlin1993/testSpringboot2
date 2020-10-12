@@ -16,7 +16,7 @@
       SELECT * FROM bill WHERE no = #{jrnNo}
    </select>
 
-   <select id="getAll" resultMap="BillList">
+   <select id="getAll" resultMap="BillList" fetchSize="3">
       SELECT * FROM bill
    </select>
 

@@ -25,8 +25,8 @@ public enum MslSystemDsEnum {
     WLS("Wallet-service","CSDWLS"),
     OPN("Gateway-openapi","CGDOGW"),
             ;
-    private String systemName;
-    private String userName;
+    private final String  systemName;
+    private final String userName;
 
 
     MslSystemDsEnum(String systemName, String userName) {
@@ -49,14 +49,8 @@ public enum MslSystemDsEnum {
     public String getUserName() {
         return userName;
     }
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public String getSystemName() {
         return systemName;
-    }
-    public void setSystemName(String systemName) {
-        this.systemName = systemName;
     }
 }

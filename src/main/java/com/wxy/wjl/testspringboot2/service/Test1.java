@@ -1,17 +1,11 @@
 package com.wxy.wjl.testspringboot2.service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.wxy.wjl.testspringboot2.domain.cusannotation.Person;
-import com.wxy.wjl.testspringboot2.utils.CommonUtils;
+import com.wxy.wjl.testspringboot2.cusannotation.Person;
 import org.apache.commons.lang3.time.DateUtils;
-import org.dom4j.Document;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 import org.testng.annotations.Test;
 
 import java.io.File;
-import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -170,12 +164,6 @@ public class Test1 {
      * 测试枚举转字符串
      * @throws Exception
      */
-    @Test
-    public void test9() throws Exception{
-        String sqlStr= CommonUtils.busMngCdConvert("customerManagement");
-        System.out.println(sqlStr);
-
-    }
 
 
     /**

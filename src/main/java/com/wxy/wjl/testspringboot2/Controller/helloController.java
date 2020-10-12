@@ -6,19 +6,13 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 测试堆中存放的是数据还是引用
+ */
 @RestController
 @EnableAutoConfiguration
 public class helloController {
 
-    @RequestMapping("/hello")
-    private String index() {
-        return "Hello World!";
-    }
-
-    /**
-     * 测试堆中存放的是数据还是引用
-     * @throws InterruptedException
-     */
     @RequestMapping("/test")
     private void test() throws InterruptedException{
         int a=0;

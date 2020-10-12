@@ -1,4 +1,4 @@
-package com.wxy.wjl.testspringboot2;
+package com.wxy.wjl.testspringboot2.blob;
 
 import com.googlecode.aviator.AviatorEvaluator;
 import com.wxy.wjl.testspringboot2.database.blob.TestBlobDO;
@@ -8,19 +8,23 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.nio.charset.StandardCharsets;
 
+/**
+ * 测试mybatis中的BLOB字段操作
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class Testspringboot2ApplicationTests {
+public class BlobMybatisTest {
 
     @Autowired
     private TestBlobMapper testBlobMapper;
 
-    /**
-     * 测试插入
-     */
+    @Test
+    public void testAviatorEvaluator(){
+        System.out.println(AviatorEvaluator.execute("* == a2"));
+    }
+
     @Test
     public void testInsertBlob(){
         TestBlobDO testBlobDO=new TestBlobDO();
@@ -30,13 +34,9 @@ public class Testspringboot2ApplicationTests {
         System.out.println(testBlobMapper.add(testBlobDO));
     }
 
-    /**
-     * 测试查询
-     */
     @Test
     public void testSelectBlob(){
         TestBlobDO testBlobDO=testBlobMapper.find(1);
         System.out.println(new String(testBlobDO.getBytes(),StandardCharsets.UTF_8));
     }
 }
-

@@ -1,6 +1,5 @@
 package com.wxy.wjl.testspringboot2;
 
-import com.wxy.wjl.testspringboot2.Controller.SocketServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -15,13 +14,13 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableCaching
 @EnableDiscoveryClient
 @EnableEurekaClient
-@EnableFeignClients(basePackages = {"com.wxy.wjl.providerapi.service","com.wxy.wjl.testspringboot2.feign"})
+@EnableFeignClients(basePackages = {"com.wxy.wjl.providerapi.service", "com.wxy.wjl.testspringboot2.cloud"})
 public class Testspringboot2Application {
 
     public static void main(String[] args) {
 
         ApplicationContext applicationContext= SpringApplication.run(Testspringboot2Application.class, args);
-        applicationContext.getBean(SocketServer.class).start(8089);
+        //applicationContext.getBean(SocketServer.class).start(8089);
     }
 
 }

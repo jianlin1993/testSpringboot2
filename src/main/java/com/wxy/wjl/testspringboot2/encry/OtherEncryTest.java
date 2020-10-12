@@ -12,8 +12,8 @@ public class OtherEncryTest {
      */
     @Test
     public void test1() throws Exception{
-        String pwd = "bzEYpWjhjk6qWBgk5JVDV1Hj0gdeqWV1r4Jcp4JR4DgGNiwfgB0XTlmF+KgoaeaX33YfXQPwh34k3cTQeplgZA==";
-        String pub = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIM3g+vNB5clTWdpfbWrJO9LsJo19XspYwuSYRHik45WMlHi/NZiwzp80GP8DhzK1O5yvlNo4BMVTAMduJCHG7UCAwEAAQ==";
+        String pwd = "TkD1Ofxytvo7WcDcpervKaD00QqcOyyUx6eY4jw+TF3v2Nod4EpiqC7L4KGA7lkhLeoeX4r5uvPoWmrnZ1M3UA==";
+        String pub = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKkb17c8c7ovSlmjRIMQ8P0T71EU5RXzyv0o2A1tOh+UnuGETaMA3ibfMwq29B2cy7VE5b+7t5TCJ/FAS60eTPsCAwEAAQ==";
         try {
             String depwd = ConfigTools.decrypt(pub, pwd);
             System.out.println(depwd);

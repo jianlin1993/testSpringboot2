@@ -1,6 +1,6 @@
 package com.wxy.wjl.testspringboot2.domain;
 
-import com.wxy.wjl.testspringboot2.domain.cusannotation.Person;
+import com.wxy.wjl.testspringboot2.cusannotation.Person;
 import lombok.Data;
 
 import java.util.List;
