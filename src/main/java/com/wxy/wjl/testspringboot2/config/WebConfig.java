@@ -1,17 +1,16 @@
 package com.wxy.wjl.testspringboot2.config;
 
 import com.wxy.wjl.testspringboot2.filter.HttpHeadFilter;
+import com.wxy.wjl.testspringboot2.filter.WjlMDCFilter;
 import com.wxy.wjl.testspringboot2.filter.XssAndCsrfFilter;
+import com.wxy.wjl.testspringboot2.interceptor.MDCInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
@@ -63,6 +62,25 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registration.setFilter(new XssAndCsrfFilter());
         return registration;
     }
+/*    @Bean
+    public FilterRegistrationBean wjlMDCFilter() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setName("wjlMDCFilter");
+        registration.setOrder(3);
+        registration.addUrlPatterns("/*");
+        registration.setFilter(new WjlMDCFilter());
+        return registration;
+    }*/
 
+    /**
+     * MDC添加日志追踪 使用拦截器代替过滤器
+     * 拦截器拦截路径一定要/**结尾才行
+     * @param registry
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new MDCInterceptor())
+                .addPathPatterns("/**");
+    }
 
 }

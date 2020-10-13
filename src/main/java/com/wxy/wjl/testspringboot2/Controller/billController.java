@@ -2,6 +2,7 @@ package com.wxy.wjl.testspringboot2.Controller;
 
 import com.wxy.wjl.testspringboot2.domain.Bill;
 import com.wxy.wjl.testspringboot2.mapper.BillMapper;
+import com.wxy.wjl.testspringboot2.utils.MDCUtils;
 import com.wxy.wjl.testspringboot2.utils.StrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class billController {
     @ResponseBody
     @RequestMapping("billinfo/{jrnNo}")
     public Bill getUser(@PathVariable String jrnNo){
+        System.out.println("TRACE_ID="+MDCUtils.getTraceId());
         Bill bill = billMapper.getBill(Integer.parseInt(jrnNo));
         return bill;
     }

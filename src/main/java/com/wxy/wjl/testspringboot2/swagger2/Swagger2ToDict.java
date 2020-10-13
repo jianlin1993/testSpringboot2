@@ -32,9 +32,9 @@ public class Swagger2ToDict extends ApiModelPropertyPropertyBuilder {
     @Override
     public void apply(ModelPropertyContext context) {
         super.apply(context);
-        System.out.println("context"+JSON.toJSONString(context));
-        System.out.println("beanPropertyDefinition"+JSON.toJSONString(context.getBeanPropertyDefinition().get()));
-        //Optional类 isPresent 方法判断对象是否存在  存在返回true
+//        System.out.println("context"+JSON.toJSONString(context));
+//        System.out.println("beanPropertyDefinition"+JSON.toJSONString(context.getBeanPropertyDefinition().get()));
+//        Optional类 isPresent 方法判断对象是否存在  存在返回true
         if (context.getAnnotatedElement().isPresent()) {
             // get 方法获取该对象
             ApiModelProperty model = AnnotationUtils.getAnnotation(context.getAnnotatedElement().get(), ApiModelProperty.class);

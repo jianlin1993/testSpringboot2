@@ -174,6 +174,27 @@ public class DateUtils {
         return newDate;
     }
 
+    /**
+     * 增加时间
+     * @param date 时间
+     * @param calendarField 时间格式 Calendar类的常量 例如Calendar.YEAR表示年
+     * @param amount 间隔
+     * @return 日期
+     */
+    public static Date addDate(Date date, int calendarField, int amount) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date could not be null!");
+        }
+        if (amount == 0) {
+            return date;
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(calendarField, amount);
+        return calendar.getTime();
+    }
+
+
 
     /**
      * 日期计算 返回相差天数

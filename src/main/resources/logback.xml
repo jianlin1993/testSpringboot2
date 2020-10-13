@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <jmxConfigurator/>
+    <property name="logBase" value="${HWORKDIR}/log"/>
+    <property name="appName" value="testspringboot2"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{TRACE_ID}] %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logBase}/${appName}-server.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--<fileNamePattern>${HWORKDIR}/msc-%d{yyyy-MM-dd}.log.%i</fileNamePattern>-->
+            <fileNamePattern>${logBase}/${appName}-server-%d{yyyy-MM-dd}.log.%i</fileNamePattern>
+            <MaxHistory>10</MaxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>100MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{TRACE_ID}] %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="FILE-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logBase}/${appName}-server-error.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--<fileNamePattern>${HWORKDIR}/msc-error-%d{yyyy-MM-dd}.log.%i</fileNamePattern>-->
+            <fileNamePattern>${logBase}/${appName}-server-error-%d{yyyy-MM-dd}.log.%i</fileNamePattern>
+            <MaxHistory>10</MaxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>100MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{TRACE_ID}] %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+<!--    &lt;!&ndash; 打印服务日志总体信息 &ndash;&gt;
+    <appender name="ecp.txnlst" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        &lt;!&ndash;<file>${HWORKDIR}/trc/txn_${NODE_ID}.lst</file>&ndash;&gt;
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            &lt;!&ndash;<fileNamePattern>${HWORKDIR}/trc/txn_${NODE_ID}-%d{yyyy-MM-dd}.lst.%i</fileNamePattern>&ndash;&gt;
+            <fileNamePattern>${HWORKDIR}/trc/%d{dd, aux}/txn_${NODE_ID}-%d{yyyy-MM-dd}.%i.lst</fileNamePattern>
+            <MaxHistory>10</MaxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>1000MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>INFO[%d{MM-dd HH:mm:ss.SSS}] -> %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    &lt;!&ndash; 打印消息中心转入转出报文日志 &ndash;&gt;
+    <appender name="ecp.msg.trc" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        &lt;!&ndash;<file>${HWORKDIR}/trc/mscepc_${NODE_ID}.trc</file>&ndash;&gt;
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            &lt;!&ndash;<fileNamePattern>${HWORKDIR}/trc/mscepc_${NODE_ID}-%d{yyyy-MM-dd}.trc.%i</fileNamePattern>&ndash;&gt;
+            <fileNamePattern>${HWORKDIR}/trc/%d{dd, aux}/mscepc_${NODE_ID}-%d{yyyy-MM-dd}.%i.trc</fileNamePattern>
+            <MaxHistory>10</MaxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>1000MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>INFO[%d{MM-dd HH:mm:ss.SSS}] -> %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="ecp.txnlst" additivity="false" level="INFO">
+        <appender-ref ref="ecp.txnlst" />
+    </logger>
+
+    <logger name="ecp.msg.trc" additivity="false" level="INFO">
+        <appender-ref ref="ecp.msg.trc" />
+    </logger>
+    <logger name="net.sf.json.JSONObject" level="ERROR"/>
+    <logger name="net.sf.json.xml.XMLSerializer" level="ERROR"/>
+    <logger name="com.murong.ecp.bp.common.cloud.config.MrFeignInvocationHandlerFactory" level="ERROR"/>
+    <logger name="com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver" level="ERROR"/>
+    <logger name="org.springframework.boot.web.filter.OrderedRequestContextFilter" level="ERROR"/>
+    <logger name="org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping" level="ERROR"/>-->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="FILE-error"/>
+    </root>
+</configuration>
