@@ -45,7 +45,7 @@ public class StrUtil {
 
     public static void main(String[] args) throws Exception{
         //System.out.println(StrUtil.getExpTime("20200617102113","70"));
-        System.out.println(getUniqueId());
+        System.out.println("  DELETE FROM ".indexOf("FROM"));
     }
 
 }
