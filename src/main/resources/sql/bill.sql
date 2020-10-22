@@ -30,3 +30,12 @@ CREATE TABLE `bill`  (
   INDEX `BILL_IND1`(`USR_NO`) USING BTREE COMMENT '用户号索引'
 ) ;
 
+DROP TABLE IF EXISTS `bill_jnl`;
+CREATE TABLE `bill_jnl`  (
+  `JRN_NO` varchar(64)  NOT NULL COMMENT '主键',
+  `USR_NO` int(10) NOT NULL COMMENT '用户号',
+  `CNL_NO` int(10) NOT NULL COMMENT '交易渠道编号',
+  `TX_AMT` double(10, 2) NULL DEFAULT NULL,
+  `CRE_DT` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`JRN_NO`) USING BTREE
+) ;

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxy.wjl.testspringboot2.mapper.BillJnlMapper">
+    <resultMap id="BillJnl" type="com.wxy.wjl.testspringboot2.message.BillJnlDO" >
+        <result column="JRN_NO" property="jrnNo" jdbcType="VARCHAR"/>
+        <result column="CRE_DT" property="creDt" jdbcType="VARCHAR"/>
+        <result column="TX_AMT" property="txAmt" jdbcType="DOUBLE"/>
+        <result column="USR_NO" property="usrNo" jdbcType="NUMERIC"/>
+        <result column="CNL_NO" property="cnlNo" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <select id="add" parameterType="com.wxy.wjl.testspringboot2.domain.Bill" resultType="int">
+      insert into bill_jnl(JRN_NO,CRE_DT,TX_AMT,USR_NO,CNL_NO) values(#{jrnNo},#{creDt},#{txAmt},#{usrNo},#{cnlNo})
+   </select>
+</mapper>

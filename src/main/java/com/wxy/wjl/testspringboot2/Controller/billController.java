@@ -1,7 +1,12 @@
 package com.wxy.wjl.testspringboot2.Controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.wxy.wjl.testspringboot2.domain.Bill;
 import com.wxy.wjl.testspringboot2.mapper.BillMapper;
+import com.wxy.wjl.testspringboot2.message.AsyncMessageJnlService;
+import com.wxy.wjl.testspringboot2.message.BillJnlDO;
+import com.wxy.wjl.testspringboot2.utils.DateUtils;
 import com.wxy.wjl.testspringboot2.utils.MDCUtils;
 import com.wxy.wjl.testspringboot2.utils.StrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +21,8 @@ import java.util.List;
 public class billController {
     @Autowired
     private BillMapper billMapper;
-
-
+    @Autowired
+    AsyncMessageJnlService asyncMessageJnlService;
     @ResponseBody
     @RequestMapping("billinfo/{jrnNo}")
     public Bill getUser(@PathVariable String jrnNo){
@@ -55,4 +60,20 @@ public class billController {
         int res= billMapper.add(bill);
         return String.valueOf(res);
     }
+
+    @ResponseBody
+    @RequestMapping("addBillJnl")
+    public String addBillJnl(){
+        BillJnlDO billJnlDO=new BillJnlDO();
+        billJnlDO.setJrnNo(DateUtils.getTmSmp());
+        billJnlDO.setCnlNo("1");
+        billJnlDO.setCreDt(DateUtils.getDateStr());
+        billJnlDO.setTxAmt("1");
+        billJnlDO.setUsrNo(1);
+        JSONObject jsonObject= JSON.parseObject("{}");
+        asyncMessageJnlService.offer(billJnlDO,jsonObject);
+        return billJnlDO.toString();
+    }
+
+
 }
