@@ -1,6 +1,5 @@
 package com.wxy.wjl.testspringboot2.swagger2;
 
-import com.alibaba.fastjson.JSON;
 import com.wxy.wjl.providerapi.annotation.Dict;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
@@ -11,12 +10,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.schema.contexts.ModelPropertyContext;
-import springfox.documentation.spi.service.OperationBuilderPlugin;
-import springfox.documentation.spi.service.contexts.OperationContext;
+
 import springfox.documentation.spring.web.DescriptionResolver;
 import springfox.documentation.swagger.schema.ApiModelPropertyPropertyBuilder;
 
-import java.util.List;
 
 /**
  * Swagger2匹配自定义注解

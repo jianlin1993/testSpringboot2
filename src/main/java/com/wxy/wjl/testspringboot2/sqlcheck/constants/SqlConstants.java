@@ -2,6 +2,9 @@ package com.wxy.wjl.testspringboot2.sqlcheck.constants;
 
 
 public class SqlConstants {
+    public static final String ORACLE = "oracle";
+    public static final String MYSQL = "mysql";
+
 
     public static final String STRING_Y = "Y";
     public static final String STRING_N = "N";
