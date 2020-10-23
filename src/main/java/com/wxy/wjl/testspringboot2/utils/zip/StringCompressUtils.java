@@ -74,12 +74,11 @@ public class StringCompressUtils {
 
 
     /**
-     * 使用gzip 代替此方法   此方法ByteArrayOutputStream未关闭
+     * 此方法与上面gzip方法是一样的  因为ByteArrayOutputStream不需要关闭
      * @param str
      * @return
      * @throws IOException
      */
-    @Deprecated
     public static String gzip2(String str) throws IOException {
         if (str == null || str.isEmpty()) {
             return str;
