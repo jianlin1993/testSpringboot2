@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+    <!--将数据库信息放到缓存中用于sql审核  -->
+
+    <!--表的索引个数-->
+    <param name="_QUERY_ALL_INDEXES" interval="2401" >
+        <property name="sqlCmd"
+                  value="SELECT table_owner||'.'||table_name key,listagg(index_name , ',') WITHIN GROUP (ORDER BY index_name) index_list
+        FROM  all_indexes where table_owner in ('CSDACM','CSDACT','BSDBAT','CSDBAP','BSDBUI','CSDURM','CSDCCS','DSDDFS','TSDEMS','TSDEJS','CGDEGW','CGDIGW','ASDIAS','CSDLNS','CSDLON','TSDNTC','CSDPRD','CSDSAS','CSDWLS','CGDOGW') group by table_owner||'.'||table_name"/>
+        <property name="dsNam" value="${LOG_DB}"/>
+        <property name="keyNam" value="key"/>
+    </param>
+
+    <!--表的索引字段-->
+    <param name="_QUERY_ALL_INDEXES_COLUMNS" interval="3601" >
+        <property name="sqlCmd"
+                  value="SELECT table_owner||'.'||table_name||'.'||index_name key,listagg(column_name, ',') WITHIN GROUP (ORDER BY column_position) column_list
+        FROM  all_ind_columns where table_owner in ('CSDACM','CSDACT','BSDBAT','CSDBAP','BSDBUI','CSDURM','CSDCCS','DSDDFS','TSDEMS','TSDEJS','CGDEGW','CGDIGW','ASDIAS','CSDLNS','CSDLON','TSDNTC','CSDPRD','CSDSAS','CSDWLS','CGDOGW') group by table_owner||'.'||table_name||'.'||index_name"/>
+        <property name="dsNam" value="${LOG_DB}"/>
+        <property name="keyNam" value="key"/>
+    </param>
+
+    <!--数据字典-->
+    <param name="_QUERY_PUB_DATDCT" interval="6100">
+        <property name="sqlCmd"
+                  value="select UPPER(dct_nm) dct_nm,UPPER(dct_len) dct_len,UPPER(dct_typ) dct_typ,UPPER(dct_cnm) dct_cnm,UPPER(dct_enm) dct_enm from pubmng.t_pub_datdct"/>
+        <property name="dsNam" value="${LOG_DB}"/>
+        <property name="keyNam" value="dct_nm"/>
+    </param>
+
+</root>

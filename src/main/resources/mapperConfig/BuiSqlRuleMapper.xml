@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxy.wjl.testspringboot2.mapper.BuiSqlRuleMapper">
+    <resultMap id="list" type="com.wxy.wjl.testspringboot2.sqlcheck.model.BuiSqlRuleDO" >
+        <result column="id" property="id" jdbcType="NUMBER"/>
+        <result column="rule_id" property="ruleId" jdbcType="VARCHAR"/>
+        <result column="rule_desc" property="ruleDesc" jdbcType="VARCHAR"/>
+        <result column="rule_type" property="ruleType" jdbcType="VARCHAR"/>
+        <result column="eff_flg" property="effFlg" jdbcType="VARCHAR"/>
+        <result column="req_id" property="reqId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectByRuleType" resultType="com.wxy.wjl.testspringboot2.sqlcheck.model.BuiSqlRuleDO" parameterType="java.lang.String">
+        select <include refid="base_column_list"/>
+        from T_BUI_SQL_RULE where RULE_TYPE = #{ruleType} and EFF_FLG='Y'
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.wxy.wjl.testspringboot2.sqlcheck.model.BuiSqlRuleDO">
+        update  T_BUI_SQL_RULE
+        <trim prefix="set" suffixOverrides = ",">
+            <if test="isNotNull(effFlg)">eff_flg=#{effFlg},</if>
+            <if test="isNotNull(nodId)">nod_id=#{nodId},</if>
+            <if test="isNotNull(tmSmp)">tm_smp=#{tmSmp},</if>
+            <if test="isNotNull(reqId)">req_id=#{reqId},</if>
+        </trim>
+        where id in (${ids})
+    </update>
+
+    <sql id="base_column_list">
+        ID,RULE_ID,RULE_TYPE,RULE_DESC,EFF_FLG
+    </sql>
+
+
+</mapper>
