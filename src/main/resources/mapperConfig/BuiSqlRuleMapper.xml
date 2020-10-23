@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wxy.wjl.testspringboot2.mapper.BuiSqlRuleMapper">
     <resultMap id="list" type="com.wxy.wjl.testspringboot2.sqlcheck.model.BuiSqlRuleDO" >
-        <result column="id" property="id" jdbcType="NUMBER"/>
+        <result column="id" property="id" jdbcType="NUMERIC"/>
         <result column="rule_id" property="ruleId" jdbcType="VARCHAR"/>
         <result column="rule_desc" property="ruleDesc" jdbcType="VARCHAR"/>
         <result column="rule_type" property="ruleType" jdbcType="VARCHAR"/>
