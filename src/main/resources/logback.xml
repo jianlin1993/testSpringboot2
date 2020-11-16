@@ -38,7 +38,7 @@
         </filter>
         <!--TimeBasedRollingPolicy策略各项含义与上面的基本一致-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logBase}/${appName}-server-%d{yyyy-MM-dd}.log.%i</fileNamePattern>
+            <fileNamePattern>${logBase}/${appName}-server-error-%d{yyyy-MM-dd}.log.%i</fileNamePattern>
             <MaxHistory>10</MaxHistory>
             <totalSizeCap>1GB</totalSizeCap>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
