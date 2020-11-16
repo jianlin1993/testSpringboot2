@@ -6,6 +6,11 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -30,7 +35,7 @@ public class DateUtils {
     public static final String DEFAULT_DATETIME_FORMAT_SEC = "yyyy-MM-dd HH:mm:ss";
     public static final String DEFAULT_DATETIME_FORMAT_SEC2 = "yyyy年MM月dd日 HH时mm分ss秒";
 
-
+    private static final String pattern = "yyyy-MM-dd HH:mm:ss.SSS";
     /**
      * 获取当前日期 yyyyMMdd 8位字符串
      * @return
@@ -264,11 +269,30 @@ public class DateUtils {
         return date.getTime();
     }
 
+    /**
+     * 获取时区时间
+     * @return
+     */
+    public static String getLocalZonedDateTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        String str = sdf.format(new Date());
+        // 获取本地时区
+        OffsetDateTime odt = OffsetDateTime.now();
+        ZoneOffset zoneOffset = odt.getOffset();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern).withZone(zoneOffset);
+        LocalDateTime localDateTime = LocalDateTime.parse(str, dateTimeFormatter);
+        ZonedDateTime utcZonedDateTime = ZonedDateTime.of(localDateTime, zoneOffset);
+        ZoneOffset localZoneOffset = OffsetDateTime.now().getOffset();
+        ZonedDateTime localZonedDateTime = utcZonedDateTime.withZoneSameInstant(localZoneOffset);
+        return localZonedDateTime.toString();
+    }
 
     public static void main(String[] args) throws Exception{
         //System.out.println(longTime2DateStrByFormat(fromDateStringToLong("20201012123801"),DEFAULT_DATETIME_FORMAT_SEC2));
         //System.out.println(getNowHourOfDay());
-        System.out.println(getDistanceDays(new Date(),strToDate("20201011143000",DEFAULT_TM_SMP_FORMAT)));
+      //  System.out.println(getDistanceDays(new Date(),strToDate("20201011143000",DEFAULT_TM_SMP_FORMAT)));
+        //System.out.println(longTime2DateStrByFormat(1605062124890L,"yyyyMMddHHmmss"));
+        System.out.println(getLocalZonedDateTime());
     }
 
     private static int[] ULEAD_MONTH_DAYS = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};

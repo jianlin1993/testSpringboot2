@@ -137,7 +137,7 @@ public class HttpUtils {
     }
 
     /**
-     * 带有超时时间的http请求
+     * 带有超时时间的http请求 如果超时时间设置0  一直等待返回
      * @param params 请求参数
      * @param url   请求url
      * @param timeOut   超时时间 单位：秒
@@ -208,6 +208,7 @@ public class HttpUtils {
         CloseableHttpClient httpclient= HttpClients.createDefault();
         CloseableHttpResponse response=null;
         HttpPost httpPost=new HttpPost(url);
+        //如果是纯文本  使用text/xml
         httpPost.setHeader("Content-Type","application/json;charset=utf-8");
         StringEntity stringEntity=new StringEntity(params,"UTF-8");
         httpPost.setEntity(stringEntity);
@@ -247,4 +248,7 @@ public class HttpUtils {
         }
         return httpRsp;
     }
+
+
+
 }

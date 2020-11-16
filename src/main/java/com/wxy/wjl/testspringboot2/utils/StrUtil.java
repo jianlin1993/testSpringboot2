@@ -1,13 +1,27 @@
 package com.wxy.wjl.testspringboot2.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.Expression;
+import com.wxy.wjl.testspringboot2.cache.CustomizeExpression;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class StrUtil {
+
+    /**
+     * Mybatis-plus的主键生成规则-UUID（其他的主键规则不靠谱）
+     * @return
+     */
+    public static String get32UUID() {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        return (new UUID(random.nextLong(), random.nextLong())).toString().replace("-", "");
+    }
 
     private static AtomicLong seqNo = new AtomicLong();
 
@@ -43,9 +57,38 @@ public class StrUtil {
         return simpleDateFormat.format(expTime);
     }
 
+
     public static void main(String[] args) throws Exception{
-        //System.out.println(StrUtil.getExpTime("20200617102113","70"));
-        System.out.println("  DELETE FROM ".indexOf("FROM"));
+        Map<String,Object> map=new HashMap<>();
+        map.put("a","1");
+        System.out.println(execute("mr.strEq(a,'1')",map));
+        //更为复杂的对象可用如下形式
+        String string = "{\"he\":\"1\", \"person\": {\"age\": 1.1, \"sex\":\"afa\"}}";
+        System.out.println(execute("mr.strEq(person.sex, 'afa')", JSON.parseObject(string)));
+
+//        System.out.println(execute("mr.strEq(a,'1')",map));
+//        System.out.println(execute("mr.numEq(a,1)",map));
     }
+
+    /**
+     * 执行表达式
+     * @param expr   待执行的表达式
+     * @param params 表达式执行参数
+     * @return 表达式执行结果
+     */
+    public static Object execute(String expr, Map<String, Object> params) {
+        try {
+            AviatorEvaluator.addStaticFunctions("mr", CustomizeExpression.class);
+            Expression expression = AviatorEvaluator.compile(expr);
+            //Expression expression = optional.orElse(null);
+            if (expression == null) {
+                return null;
+            }
+            return expression.execute(params);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
 }

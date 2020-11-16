@@ -12,13 +12,18 @@
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${logBase}/${appName}-server.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!--<fileNamePattern>${HWORKDIR}/msc-%d{yyyy-MM-dd}.log.%i</fileNamePattern>-->
+        <!--SizeAndTimeBasedRollingPolicy策略继承了TimeBasedRollingPolicy策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--每天生成一个文件 %i表示序号 从0开始-->
             <fileNamePattern>${logBase}/${appName}-server-%d{yyyy-MM-dd}.log.%i</fileNamePattern>
+            <!--每个文件的大小限制-->
+            <MaxFileSize>100MB</MaxFileSize>
+            <!--最多保留10天的文件，10天之前的将被清除-->
             <MaxHistory>10</MaxHistory>
-            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <MaxFileSize>100MB</MaxFileSize>
-            </TimeBasedFileNamingAndTriggeringPolicy>
+            <!--该滚动策略日志的总大小，超过的日志会被清除-->
+            <totalSizeCap>1GB</totalSizeCap>
+            <!--启动时清理日志文件  此项置灰清理超过保留天数的  不会清理超过总大小的-->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{TRACE_ID}] %msg%n</pattern>
@@ -31,16 +36,18 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
+        <!--TimeBasedRollingPolicy策略各项含义与上面的基本一致-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!--<fileNamePattern>${HWORKDIR}/msc-error-%d{yyyy-MM-dd}.log.%i</fileNamePattern>-->
-            <fileNamePattern>${logBase}/${appName}-server-error-%d{yyyy-MM-dd}.log.%i</fileNamePattern>
+            <fileNamePattern>${logBase}/${appName}-server-%d{yyyy-MM-dd}.log.%i</fileNamePattern>
             <MaxHistory>10</MaxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
             <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <MaxFileSize>100MB</MaxFileSize>
             </TimeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{TRACE_ID}] %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} -  %msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
     </appender>

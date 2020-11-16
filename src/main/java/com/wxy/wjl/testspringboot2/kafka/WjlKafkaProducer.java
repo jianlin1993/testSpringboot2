@@ -1,11 +1,13 @@
 package com.wxy.wjl.testspringboot2.kafka;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
 import java.util.Properties;
+import java.util.concurrent.Future;
 
 public class WjlKafkaProducer {
     KafkaProducer producer=null;
@@ -20,10 +22,10 @@ public class WjlKafkaProducer {
         //kafka broker地址 如果是集群可配置多个，最好全部配置上，因为如果只配置一个，如果此broker挂掉，可能会出现连接失败的情况
         //在启动consumer时配置的broker地址的。不需要将cluster中所有的broker都配置上，因为启动后会自动的发现cluster所有的broker。
         //    它配置的格式是：host1:port1;host2:port2…
-        var2.put("bootstrap.servers", "");
+        var2.put("bootstrap.servers", "10.0.0.4:9092");
 
         //client.id 发出请求时传递给服务器的id字符串。这样做的目的是通过允许将逻辑应用程序名称包含在服务器端请求日志中，从而能够跟踪ip / port之外的请求源，如果不手动指定，代码中会自动生成一个id。
-        var2.put("client.id", "");
+        var2.put("client.id", "test");
         var2.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         var2.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         var2.put("linger.ms", "5");
@@ -37,8 +39,17 @@ public class WjlKafkaProducer {
         //partitioner.class 实现Partitioner接口的分区器类。默认使用DefaultPartitioner来进行分区。
     }
 
-    public void send(String topic){
-        producer.send(new ProducerRecord(topic, "", ""), new Callback() {
+
+    /**
+     * 异步发送 调用send并制定回调函数
+     * @param topic
+     * @param str
+     * @throws Exception
+     */
+    public void asyncSend(String topic,String str) throws Exception{
+
+
+        producer.send(new ProducerRecord(topic, "", str), new Callback() {
             public void onCompletion(RecordMetadata var1, Exception var2) {
                 if (var2 != null) {
                     if (var1 == null) {
@@ -52,6 +63,19 @@ public class WjlKafkaProducer {
         });
     }
 
+    /**
+     * 同步发送 调用send方法并调用get等待返回  get方法会阻塞 直到返回
+     * @param topic
+     * @param str
+     * @throws Exception
+     */
+    public void syncSend(String topic,String str) throws Exception{
+
+        RecordMetadata metadata=(RecordMetadata)producer.send(new ProducerRecord(topic, "", str)).get();
+        System.out.println("topic"+ metadata.topic());
+        System.out.println("offset"+ metadata.offset());
+
+    }
 
 
 }
