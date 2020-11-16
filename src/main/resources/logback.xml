@@ -22,7 +22,7 @@
             <MaxHistory>10</MaxHistory>
             <!--该滚动策略日志的总大小，超过的日志会被清除-->
             <totalSizeCap>1GB</totalSizeCap>
-            <!--启动时清理日志文件  此项置灰清理超过保留天数的  不会清理超过总大小的-->
+            <!--启动时清理日志文件  此项置灰清理超过保留天数的  也会清理超过总大小的-->
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder>
