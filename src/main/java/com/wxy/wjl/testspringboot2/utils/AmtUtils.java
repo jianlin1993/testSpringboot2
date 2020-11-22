@@ -1,5 +1,7 @@
 package com.wxy.wjl.testspringboot2.utils;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
@@ -18,6 +20,20 @@ public class AmtUtils {
         }catch (Exception e){
             throw e;
         }
+    }
+
+    public static String yuan2fen(String yuanAmt) {
+        if(StringUtils.isBlank(yuanAmt)){
+            return "0";
+        }
+        DecimalFormat df = new DecimalFormat("#");
+        BigDecimal yuan=new BigDecimal(yuanAmt);
+        BigDecimal fen=yuan.multiply(new BigDecimal("100"));
+        return df.format(fen);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(yuan2fen(""));
     }
 
 }

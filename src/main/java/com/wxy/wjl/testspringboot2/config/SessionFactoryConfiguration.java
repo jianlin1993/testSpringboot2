@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @SpringBootConfiguration
 public class SessionFactoryConfiguration {
-    @Value("${mapper.xml.config.path}")
+/*    @Value("${mapper.xml.config.path}")
     private String mapperXMLConfigPath;
     @Value("${mapper.package.path}")
     private String mapperPackagePath;
@@ -33,6 +33,6 @@ public class SessionFactoryConfiguration {
         sqlSessionFactoryBean.setTypeAliasesPackage(mapperPackagePath);
 
         return sqlSessionFactoryBean;
-    }
+    }*/
 
 }

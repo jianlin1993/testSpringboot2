@@ -1,5 +1,6 @@
 package com.wxy.wjl.testspringboot2;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableDiscoveryClient
 @EnableEurekaClient
 @EnableFeignClients(basePackages = {"com.wxy.wjl.providerapi.service", "com.wxy.wjl.testspringboot2.cloud"})
+@MapperScan({"com.wxy.wjl.testspringboot2.mapper","com.wxy.wjl.testspringboot2.job.dal.dao"})
 public class Testspringboot2Application {
 
     public static void main(String[] args) {

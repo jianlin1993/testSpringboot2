@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
-@Mapper
+//@Mapper
 public interface BillMapper {
 
     @Cacheable(value= SpringCacheConfig.CACHE_NAME,key = "'BillMapper.' +  methodName +'.' + #p0", unless = "#result==null")

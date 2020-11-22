@@ -4,20 +4,27 @@ import com.alibaba.druid.filter.config.ConfigTools;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.googlecode.aviator.AviatorEvaluator;
+import com.wxy.wjl.testng.common.StringUtil;
 import com.wxy.wjl.testspringboot2.service.Son;
 import com.wxy.wjl.testspringboot2.utils.HttpUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class RequestService {
 
@@ -67,10 +74,19 @@ public class RequestService {
 //		String warn="11";
 //		boolean result=warn.matches(regex);
 //		System.out.println(result);
-		String patrn = "^[0-9]+(.)?[0-9]+$";
-		String warn="50.00";
-		boolean result=warn.matches(patrn);
-		System.out.println(result);
+//		String patrn = "^[0-9]+(.)?[0-9]+$";
+//		String warn="50.00";
+//		boolean result=warn.matches(patrn);
+//		System.out.println(result);
+		String tableName="T_BUI_OPER";
+		String uniqueIndexPattern = "^UI\\d+_"+tableName;
+		String normalIndexPattern = "^NI\\d+_"+tableName;
+		String indexName="UI11_T_BUI_OPER_";
+		boolean matchResult=false;
+		matchResult=indexName.matches(uniqueIndexPattern);
+		System.out.println(matchResult);
+
+
 	}
 	@Test
 	public void test5() throws Exception{
@@ -243,12 +259,8 @@ public class RequestService {
 	 */
 	@Test
 	public void test13() throws Exception{
-		List<Integer> list1=new ArrayList<>(10);
-		for(int i=1;i<=20;i++){
-			list1.add(i);
-		}
-		list1.forEach(t -> System.out.println(t));
-
+		String tableNamePattern = "^T_[A-Z]{3}_\\w+";
+		System.out.println("T_ABC_OPER_2019".matches(tableNamePattern));
 	}
 
 	/**
@@ -522,8 +534,104 @@ public class RequestService {
 
 	@Test
 	public void test32() throws Exception{
-		 String[] verifyReferer = null;
-		verifyReferer="".split(",");
-		System.out.println(verifyReferer == null);
+		String formatSql="query.topTwenty";
+		System.out.println(formatSql.split("\\.")[0].trim());
+		System.out.println(new BigDecimal("120.010").toString());
+
+		System.out.println(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1);
+		System.out.println( NumberUtils.toInt(DateFormatUtils.format(new Date(), "HH")));
+	}
+
+	@Test
+	public void test33() throws Exception{
+		System.out.println(StringUtils.leftPad("99999999", 9, '0'));
+
+	}
+
+	@Test
+	public void test34() throws Exception{
+
+		String data="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+				"<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ic4=\"http://VMTComponentModel/InterfaceSpecification/Interfaces/C4/IC4FSP2VMT\" xmlns:c4=\"http://VMTComponentModel/InterfaceSpecification/Messages/C4/\">\n" +
+				"\t<soapenv:Header/>\n" +
+				"\t<soapenv:Body>\n" +
+				"\t\t<ic4:FSPInitiatedActivateNotification>\n" +
+				"\t\t\t<ic4:request>\n" +
+				"\t\t\t\t<c4:AdditionalInformation></c4:AdditionalInformation>\n" +
+				"\t\t\t\t<c4:BankShortCode>262626</c4:BankShortCode>\n" +
+				"\t\t\t\t<c4:CustomerId>\n" +
+				"\t\t\t\t\t<c4:MSISDN>254711121023</c4:MSISDN>\n" +
+				"\t\t\t\t\t<c4:VmtReferenceNumber>254711121023</c4:VmtReferenceNumber>\n" +
+				"\t\t\t\t</c4:CustomerId>\n" +
+				"\t\t\t\t<c4:MessageId>\n" +
+				"\t\t\t\t\t<c4:Id>2ca5de95-06c1-4153-ac13-0789772710bf</c4:Id>\n" +
+				"\t\t\t\t\t<c4:TimeStamp>2020-11-12T17:37:15.444+03:00</c4:TimeStamp>\n" +
+				"\t\t\t\t</c4:MessageId>\n" +
+				"\t\t\t\t<c4:TransactionId>20201112223228</c4:TransactionId>\n" +
+				"\t\t\t\t<c4:TransactionReceiptNumber>20201112223228</c4:TransactionReceiptNumber>\n" +
+				"\t\t\t\t<c4:TransactionTypeName>ActivateAccount</c4:TransactionTypeName>\n" +
+				"\t\t\t\t<c4:AccountCreationTimeStamp>2020-11-12T17:37:15.444+03:00</c4:AccountCreationTimeStamp>\n" +
+				"\t\t\t\t<c4:BankResponseCode>S0</c4:BankResponseCode>\n" +
+				"\t\t\t\t<c4:SavingsAccountNumber>1060030601435892</c4:SavingsAccountNumber>\n" +
+				"\t\t\t\t<c4:SimAppTransId>20201112223228</c4:SimAppTransId>\n" +
+				"\t\t\t</ic4:request>\n" +
+				"\t\t</ic4:FSPInitiatedActivateNotification>\n" +
+				"\t</soapenv:Body>\n" +
+				"</soapenv:Envelope>";
+
+		System.out.println(data.length());
+
+
+
+
+
+
+	}
+	private final AtomicLong now=new AtomicLong(System.currentTimeMillis());;
+
+	@Test
+	public void test35() throws Exception{
+		String requestUrl="https://172.16.0.14/";
+		int idx1 = requestUrl.indexOf("/", 8);
+		if (idx1 == -1) {
+
+		}
+
+		int idx3 = requestUrl.indexOf("?");
+		String gwWebRoot = "";
+		if (idx3 != -1) {
+			gwWebRoot = requestUrl.substring(idx1, idx3);
+		} else {
+			gwWebRoot = requestUrl.substring(idx1);
+		}
+		System.out.println(gwWebRoot);
+	}
+
+
+	protected static long getDatacenterId(long maxDatacenterId) {
+		long id = 0L;
+
+		try {
+			InetAddress ip = InetAddress.getLocalHost();
+			NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+			System.out.println(network.getHardwareAddress().toString());
+			if (network == null) {
+				id = 1L;
+			} else {
+				byte[] mac = network.getHardwareAddress();
+				if (null != mac) {
+					id = (255L & (long)mac[mac.length - 1] | 65280L & (long)mac[mac.length - 2] << 8) >> 6;
+					id %= maxDatacenterId + 1L;
+				}
+			}
+		} catch (Exception var7) {
+			//logger.warn(" getDatacenterId: " + var7.getMessage());
+		}
+
+		return id;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(getDatacenterId(31L));
 	}
 }
