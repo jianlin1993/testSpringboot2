@@ -55,4 +55,24 @@ public class Swagger2Config {
                 .termsOfServiceUrl("http://www.baidu.com") // 设置文档的License信息->1.3 License information
                 .build();
     }
+
+    @Bean
+    public Docket gatewayApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Gateway-openapi")
+                .apiInfo(controllerApiInfo())
+                .select()
+                //.apis("")
+                .paths(PathSelectors.any()) // 可以根据url路径设置哪些请求加入文档，忽略哪些请求
+                .build();
+    }
+    private ApiInfo gatewayApiInfo() {
+        return new ApiInfoBuilder()
+                .title("Gateway-openapi接口文档") //设置文档的标题
+                .description("Gateway-openapi接口文档") // 设置文档的描述
+                .version(VERSION) // 设置文档的版本信息-> 1.0.0 Version information
+                .termsOfServiceUrl("") // 设置文档的License信息->1.3 License information
+                .build();
+    }
+
 }

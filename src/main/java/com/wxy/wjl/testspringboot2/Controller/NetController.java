@@ -2,6 +2,7 @@ package com.wxy.wjl.testspringboot2.Controller;
 
 import com.wxy.wjl.testspringboot2.utils.HttpUtils;
 import com.wxy.wjl.testspringboot2.utils.NetUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ResponseBody
 @Controller
 @RequestMapping("/net")
+@Slf4j
 public class NetController {
 
     @RequestMapping("/getPid")
     public Integer getPid(){
+        log.info("获取pid");
+
         return NetUtil.getPid();
     }
 

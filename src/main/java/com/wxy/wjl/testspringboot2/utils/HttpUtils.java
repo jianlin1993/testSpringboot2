@@ -8,6 +8,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -15,6 +16,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 public class HttpUtils {
 
@@ -138,7 +140,7 @@ public class HttpUtils {
 
     /**
      * 带有超时时间的http请求 如果超时时间设置0  一直等待返回
-     * @param params 请求参数
+     * @param params 请求参数(json格式) JSON.toJsonString
      * @param url   请求url
      * @param timeOut   超时时间 单位：秒
      * @return
@@ -154,6 +156,9 @@ public class HttpUtils {
         httpPost.setEntity(stringEntity);
         HttpEntity entity=null;
 
+        // setConnectTimeout 是设置连接到目标 URL 的等待时长，超过这个时间还没连上就抛出连接超时；
+        //setConnectionRequestTimeout 是从connect Manager（连接池）获取连接的等待时长，这个版本是共享连接池的；
+        //setSocketTimeout 是连接到目标URL 之后等待返回响应的时长，即超过这个时间就放弃本次调用并抛出 SocketTimeoutException:Read Time Out,实际时等待数据包的间隔
         RequestConfig requestConfig = RequestConfig.custom()
                 .setConnectTimeout(timeOut*1000)
                 .setSocketTimeout(timeOut*1000)
@@ -178,7 +183,13 @@ public class HttpUtils {
             if(null == httpRsp || "".equals(httpRsp.trim())){
                 throw new Exception("通讯异常，返回报文为空");
             }
-        }catch (Exception e){
+        }catch (SocketTimeoutException e){
+            System.out.println("接收数据超时");
+            throw e;
+        }catch (ConnectTimeoutException e){
+            System.out.println("连接超时");
+            throw e;
+        } catch (Exception e){
             //其他异常，抛出异常错误
             throw e;
         }finally {
